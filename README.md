@@ -84,7 +84,7 @@ Clay-CXD/
 
 ```bash
 # Clone the repository
-git clone [your-repo-url]
+git clone https://github.com/xprooket/clay-CXD.git
 cd Clay-CXD
 
 # Install Clay dependencies
