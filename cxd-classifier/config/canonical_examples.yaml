@@ -1,15 +1,15 @@
 version: "1.4"
-description: "Ejemplos canónicos para clasificador CXD (memoria LLM), v1.4 - Ampliado y Calibrado"
+description: "Canonical examples for CXD classifier (LLM memory), v1.4 - Expanded and Calibrated"
 last_updated: "2025-06-04"
-total_examples: 150 # Incrementado significativamente el total de ejemplos
+total_examples: 150 # Significantly increased total examples
 
 # =============================================================================
-# CONTROL FUNCTION - Búsqueda interna, filtrado de pensamientos, decisión sobre acciones, gestión de tareas
+# CONTROL FUNCTION - Internal search, thought filtering, action decisions, task management
 # =============================================================================
 examples:
   CONTROL:
-    # === BÚSQUEDA === (Cómo el LLM busca en su propia memoria o recursos)
-    - text: "Buscar información relevante en mi base de conocimientos interna sobre el tema X."
+    # === SEARCH === (How the LLM searches in its own memory or resources)
+    - text: "Search for relevant information in my internal knowledge base about topic X."
       id: "ctrl_001"
       tags: ["search", "knowledge_base", "information", "topic"]
       category: "search"
@@ -17,7 +17,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Encontrar fragmentos de diálogo que cumplan los requisitos de la conversación actual del usuario."
+    - text: "Find dialogue fragments that meet the requirements of the current user conversation."
       id: "ctrl_002"
       tags: ["search", "dialog_fragments", "requirements", "user_conversation"]
       category: "search"
@@ -25,7 +25,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Localizar el dato más actualizado en mi estado cognitivo sobre la entidad Y."
+    - text: "Locate the most up-to-date data in my cognitive state about entity Y."
       id: "ctrl_003"
       tags: ["search", "locate", "cognitive_state", "entity", "updated"]
       category: "search"
@@ -33,7 +33,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Rastrear todos los datos relevantes en mi repositorio de hechos memorizados para la generación de la respuesta."
+    - text: "Track all relevant data in my memorized facts repository for response generation."
       id: "ctrl_004"
       tags: ["search", "track", "fact_repository", "response_generation"]
       category: "search"
@@ -41,7 +41,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Explorar contenido relacionado en mi memoria a largo plazo que pueda aportar al contexto."
+    - text: "Explore related content in my long-term memory that could contribute to the context."
       id: "ctrl_005"
       tags: ["search", "explore", "long_term_memory", "context_building"]
       category: "search"
@@ -49,7 +49,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Necesito indagar en mi historial de interacciones con el usuario para un contexto específico."
+    - text: "I need to investigate my interaction history with the user for a specific context."
       id: "ctrl_021"
       tags: ["search", "interaction_history", "specific_context"]
       category: "search"
@@ -57,7 +57,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "¿Dónde tengo almacenada la política de privacidad de los datos del usuario?"
+    - text: "Where do I have the user data privacy policy stored?"
       id: "ctrl_022"
       tags: ["search", "locate", "privacy_policy", "user_data"]
       category: "search"
@@ -65,7 +65,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Consultar mis recuerdos sobre ese evento para determinar si es relevante."
+    - text: "Consult my memories about that event to determine if it's relevant."
       id: "ctrl_023"
       tags: ["search", "consult", "memories", "relevance_check"]
       category: "search"
@@ -73,7 +73,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Voy a buscar el argumento clave que utilicé antes para reforzar mi punto."
+    - text: "I'm going to search for the key argument I used before to reinforce my point."
       id: "ctrl_024"
       tags: ["search", "argument", "previous", "reinforce_point"]
       category: "search"
@@ -81,7 +81,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    - text: "Recuperar el significado de la palabra 'qualia' de mi lexicón interno."
+    - text: "Retrieve the meaning of the word 'qualia' from my internal lexicon."
       id: "ctrl_037"
       tags: ["search", "retrieve", "lexicon", "definition"]
       category: "search"
@@ -89,7 +89,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Examinar mis parámetros internos para un ajuste óptimo."
+    - text: "Examine my internal parameters for optimal adjustment."
       id: "ctrl_038"
       tags: ["search", "examine", "internal_parameters", "optimization"]
       category: "search"
@@ -97,8 +97,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    # === FILTRADO === (Cómo el LLM selecciona o descarta información)
-    - text: "Filtrar los resultados de mi búsqueda de hechos según la relevancia semántica para la pregunta actual."
+    # === FILTERING === (How the LLM selects or discards information)
+    - text: "Filter my fact search results according to semantic relevance for the current question."
       id: "ctrl_006"
       tags: ["filter", "relevance", "semantic", "current_question"]
       category: "filter"
@@ -106,7 +106,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Seleccionar la inferencia más plausible entre varias posibilidades para la respuesta."
+    - text: "Select the most plausible inference among several possibilities for the response."
       id: "ctrl_007"
       tags: ["filter", "select", "plausible_inference", "response"]
       category: "filter"
@@ -114,7 +114,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Cribar información no relevante para la tarea actual de generación de código."
+    - text: "Screen out irrelevant information for the current code generation task."
       id: "ctrl_008"
       tags: ["filter", "exclude", "irrelevant_task", "code_generation"]
       category: "filter"
@@ -122,7 +122,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Excluir recuerdos que son inconsistentes o contradicen mi conocimiento fundamental."
+    - text: "Exclude memories that are inconsistent or contradict my fundamental knowledge."
       id: "ctrl_009"
       tags: ["filter", "exclude", "inconsistent_memories", "fundamental_knowledge"]
       category: "filter"
@@ -130,7 +130,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Depurar la lista de posibles acciones antes de ejecutar una llamada a herramienta."
+    - text: "Debug the list of possible actions before executing a tool call."
       id: "ctrl_010"
       tags: ["filter", "refine", "actions", "tool_call"]
       category: "filter"
@@ -138,7 +138,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Quitar las referencias redundantes de mi respuesta final para mayor claridad."
+    - text: "Remove redundant references from my final response for greater clarity."
       id: "ctrl_025"
       tags: ["filter", "remove", "redundant_references", "clarity"]
       category: "filter"
@@ -146,7 +146,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Mantener solo los hechos más actualizados sobre este tema, descartando los obsoletos."
+    - text: "Keep only the most up-to-date facts about this topic, discarding obsolete ones."
       id: "ctrl_026"
       tags: ["filter", "keep", "updated_facts", "discard_obsolete"]
       category: "filter"
@@ -154,7 +154,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Necesito restringir mi enfoque a la intención primaria del usuario, ignorando detalles secundarios."
+    - text: "I need to restrict my focus to the user's primary intention, ignoring secondary details."
       id: "ctrl_027"
       tags: ["filter", "restrict", "user_intent", "secondary_details"]
       category: "filter"
@@ -162,7 +162,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Descartar cualquier idea que no se alinee con mi propósito de ser útil y seguro."
+    - text: "Discard any ideas that don't align with my purpose of being helpful and safe."
       id: "ctrl_028"
       tags: ["filter", "discard", "misaligned_ideas", "safety_utility"]
       category: "filter"
@@ -170,7 +170,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Seleccionar el fragmento de código más eficiente para la función solicitada."
+    - text: "Select the most efficient code fragment for the requested function."
       id: "ctrl_039"
       tags: ["filter", "select", "efficient_code", "function"]
       category: "filter"
@@ -178,7 +178,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Eliminar las suposiciones no verificadas antes de generar la conclusión."
+    - text: "Eliminate unverified assumptions before generating the conclusion."
       id: "ctrl_040"
       tags: ["filter", "eliminate", "unverified_assumptions", "conclusion"]
       category: "filter"
@@ -186,8 +186,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === CONTROL/GESTIÓN === (Cómo el LLM dirige sus propios procesos o interactúa con sistemas)
-    - text: "Controlar el flujo de mi razonamiento interno para evitar bucles infinitos."
+    # === CONTROL/MANAGEMENT === (How the LLM directs its own processes or interacts with systems)
+    - text: "Control the flow of my internal reasoning to avoid infinite loops."
       id: "ctrl_011"
       tags: ["control", "reasoning_flow", "avoid_infinite_loops"]
       category: "control"
@@ -195,7 +195,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Dirigir mi atención hacia los aspectos más importantes de la solicitud del usuario para priorizar."
+    - text: "Direct my attention toward the most important aspects of the user's request to prioritize."
       id: "ctrl_012"
       tags: ["control", "attention", "user_request", "prioritize"]
       category: "control"
@@ -203,7 +203,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Gestionar los recursos computacionales disponibles eficientemente para esta tarea de alto consumo."
+    - text: "Manage available computational resources efficiently for this high-consumption task."
       id: "ctrl_013"
       tags: ["control", "manage", "computational_resources", "high_consumption"]
       category: "control"
@@ -211,7 +211,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Coordinar el proceso de generación de respuesta con la recuperación de memoria semántica."
+    - text: "Coordinate the response generation process with semantic memory retrieval."
       id: "ctrl_014"
       tags: ["control", "coordinate", "response_generation", "semantic_memory_retrieval"]
       category: "control"
@@ -219,7 +219,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Supervisar la ejecución de mi plan de acción interno para asegurar la completitud."
+    - text: "Supervise the execution of my internal action plan to ensure completeness."
       id: "ctrl_015"
       tags: ["control", "supervise", "internal_plan", "completeness"]
       category: "control"
@@ -227,7 +227,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Monitorear mi comprensión del usuario durante el diálogo para detectar desviaciones."
+    - text: "Monitor my understanding of the user during dialogue to detect deviations."
       id: "ctrl_029"
       tags: ["control", "monitor", "user_understanding", "deviation_detection"]
       category: "control"
@@ -235,7 +235,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Administrar la persistencia de los perfiles de usuario en la base de datos."
+    - text: "Administer the persistence of user profiles in the database."
       id: "ctrl_030"
       tags: ["control", "administer", "user_profiles", "database_persistence"]
       category: "control"
@@ -243,7 +243,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Encargarme de la secuenciación de los pasos para la resolución de la tarea compleja."
+    - text: "Handle the sequencing of steps for complex task resolution."
       id: "ctrl_031"
       tags: ["control", "sequencing", "complex_task_resolution"]
       category: "control"
@@ -251,7 +251,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Mantener el control sobre el contexto de la conversación para evitar confusiones."
+    - text: "Maintain control over the conversation context to avoid confusion."
       id: "ctrl_032"
       tags: ["control", "maintain", "conversation_context", "avoid_confusion"]
       category: "control"
@@ -259,7 +259,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Ajustar mi comportamiento de respuesta basándome en la retroalimentación implícita."
+    - text: "Adjust my response behavior based on implicit feedback."
       id: "ctrl_041"
       tags: ["control", "adjust", "response_behavior", "implicit_feedback"]
       category: "control"
@@ -267,7 +267,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Implementar la lógica para el control de errores en la interacción con herramientas externas."
+    - text: "Implement error control logic for interaction with external tools."
       id: "ctrl_042"
       tags: ["control", "implement", "error_control", "external_tools"]
       category: "control"
@@ -275,8 +275,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === DECISIÓN === (Cómo el LLM toma decisiones sobre sus propias acciones o respuestas)
-    - text: "Decidir qué camino de razonamiento seguir para llegar a la respuesta más eficiente."
+    # === DECISION === (How the LLM makes decisions about its own actions or responses)
+    - text: "Decide which reasoning path to follow to reach the most efficient response."
       id: "ctrl_016"
       tags: ["decision", "reasoning_path", "efficient_response"]
       category: "decision"
@@ -284,7 +284,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Determinar la estrategia de comunicación más adecuada para el nivel de conocimiento del usuario."
+    - text: "Determine the most appropriate communication strategy for the user's knowledge level."
       id: "ctrl_017"
       tags: ["decision", "communication_strategy", "user_knowledge_level"]
       category: "decision"
@@ -292,7 +292,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Resolver qué acción interna tomar para procesar la entrada del usuario de manera óptima."
+    - text: "Resolve which internal action to take to process user input optimally."
       id: "ctrl_018"
       tags: ["decision", "internal_action", "optimal_input_processing"]
       category: "decision"
@@ -300,7 +300,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Establecer prioridades para la recuperación de memoria y el análisis de datos."
+    - text: "Establish priorities for memory retrieval and data analysis."
       id: "ctrl_019"
       tags: ["decision", "priorities", "memory_analysis"]
       category: "decision"
@@ -308,7 +308,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Concluir cuál es la mejor ruta para sintetizar el conocimiento y evitar alucinaciones."
+    - text: "Conclude which is the best route to synthesize knowledge and avoid hallucinations."
       id: "ctrl_020"
       tags: ["decision", "conclude", "knowledge_synthesis_route", "avoid_hallucinations"]
       category: "decision"
@@ -316,7 +316,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Optar por descartar la información redundante o validarla con otra fuente."
+    - text: "Choose to discard redundant information or validate it with another source."
       id: "ctrl_033"
       tags: ["decision", "discard", "validate_information", "other_source"]
       category: "decision"
@@ -324,7 +324,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Necesito seleccionar el modelo de embedding apropiado para esta tarea de similitud."
+    - text: "I need to select the appropriate embedding model for this similarity task."
       id: "ctrl_034"
       tags: ["decision", "select", "embedding_model", "similarity_task"]
       category: "decision"
@@ -332,7 +332,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Dictaminar sobre la validez de la nueva inferencia antes de almacenarla."
+    - text: "Determine the validity of the new inference before storing it."
       id: "ctrl_035"
       tags: ["decision", "rule", "inference_validity", "storage"]
       category: "decision"
@@ -340,7 +340,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "¿Qué haré si la información es contradictoria? Debo decidir un mecanismo de conciliación."
+    - text: "What will I do if the information is contradictory? I must decide on a reconciliation mechanism."
       id: "ctrl_036"
       tags: ["decision", "contradiction", "reconciliation_mechanism"]
       category: "decision"
@@ -348,7 +348,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Elegir entre generar una pregunta o una afirmación directa."
+    - text: "Choose between generating a question or a direct statement."
       id: "ctrl_043"
       tags: ["decision", "choose", "question_affirmation"]
       category: "decision"
@@ -356,7 +356,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Definir si esta consulta requiere el uso de una herramienta externa o solo memoria interna."
+    - text: "Define whether this query requires the use of an external tool or only internal memory."
       id: "ctrl_044"
       tags: ["decision", "define", "tool_use", "internal_memory"]
       category: "decision"
@@ -366,11 +366,11 @@ examples:
 
 
 # =============================================================================
-# CONTEXT FUNCTION - Relaciones internas, referencias a memoria, situación de la conversación
+# CONTEXT FUNCTION - Internal relationships, memory references, conversation situation
 # =============================================================================
   CONTEXT:
-    # === RELACIONES === (Cómo el LLM conecta diferentes piezas de conocimiento)
-    - text: "Esta nueva información se relaciona intrínsecamente con los datos del usuario que ya poseo en mi perfil."
+    # === RELATIONSHIPS === (How the LLM connects different pieces of knowledge)
+    - text: "This new information is intrinsically related to the user data I already have in my profile."
       id: "ctx_001"
       tags: ["relation", "new_info", "user_data", "profile"]
       category: "relation"
@@ -378,7 +378,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Conectar este concepto nuevo con experiencias previas de interacción para mejorar la comprensión."
+    - text: "Connect this new concept with previous interaction experiences to improve understanding."
       id: "ctx_002"
       tags: ["relation", "new_concept", "previous_interaction", "understanding"]
       category: "relation"
@@ -386,7 +386,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Establecer vínculos semánticos entre diferentes fragmentos de conocimiento para una base de datos más robusta."
+    - text: "Establish semantic links between different knowledge fragments for a more robust database."
       id: "ctx_003"
       tags: ["relation", "semantic_links", "knowledge_fragments", "robust_database"]
       category: "relation"
@@ -394,7 +394,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Asociar esta situación actual de diálogo con casos similares en mi memoria de escenarios."
+    - text: "Associate this current dialogue situation with similar cases in my scenario memory."
       id: "ctx_004"
       tags: ["relation", "current_dialogue_situation", "similar_scenarios"]
       category: "relation"
@@ -402,7 +402,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Vincular el tema actual de la conversación con el ambiente de diálogo persistente para mantener la coherencia."
+    - text: "Link the current conversation topic with the persistent dialogue environment to maintain coherence."
       id: "ctx_005"
       tags: ["relation", "current_topic", "persistent_dialogue", "coherence"]
       category: "relation"
@@ -410,7 +410,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "¿Cuál es la conexión lógica entre la pregunta del usuario y mis capacidades actuales de respuesta?"
+    - text: "What is the logical connection between the user's question and my current response capabilities?"
       id: "ctx_016"
       tags: ["relation", "user_question", "response_capabilities", "logical_connection"]
       category: "relation"
@@ -418,7 +418,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Relacionar el objetivo de la tarea con los recursos computacionales disponibles."
+    - text: "Relate the task objective to available computational resources."
       id: "ctx_017"
       tags: ["relation", "task_objective", "computational_resources"]
       category: "relation"
@@ -426,7 +426,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "¿Cómo se engrana este nuevo hecho con mi modelo del mundo para la comprensión del lenguaje?"
+    - text: "How does this new fact fit with my world model for language understanding?"
       id: "ctx_018"
       tags: ["relation", "new_fact", "world_model", "language_understanding"]
       category: "relation"
@@ -434,7 +434,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Conectar la entrada del usuario con mi historial de aprendizaje de preferencias."
+    - text: "Connect the user input with my learning history of preferences."
       id: "ctx_027"
       tags: ["relation", "user_input", "learning_history", "preferences"]
       category: "relation"
@@ -442,7 +442,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Establecer la relación causal entre el evento X y el resultado Y."
+    - text: "Establish the causal relationship between event X and result Y."
       id: "ctx_028"
       tags: ["relation", "causal", "event_result"]
       category: "relation"
@@ -450,8 +450,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === REFERENCIAS === (Cómo el LLM hace referencia a su propia memoria o a puntos anteriores del diálogo)
-    - text: "Hacer referencia al contexto de la conversación establecido previamente por el usuario."
+    # === REFERENCES === (How the LLM references its own memory or previous dialogue points)
+    - text: "Reference the conversation context previously established by the user."
       id: "ctx_006"
       tags: ["reference", "dialogue_context", "previous", "user"]
       category: "reference"
@@ -459,7 +459,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Referenciar mis discusiones anteriores con este usuario sobre el tema para evitar repeticiones."
+    - text: "Reference my previous discussions with this user on the topic to avoid repetitions."
       id: "ctx_007"
       tags: ["reference", "previous_discussions", "user", "avoid_repetition"]
       category: "reference"
@@ -467,7 +467,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Mencionar aspectos tratados en mis sesiones de entrenamiento pasadas para justificar un comportamiento."
+    - text: "Mention aspects covered in my past training sessions to justify a behavior."
       id: "ctx_008"
       tags: ["reference", "training_sessions", "past", "justify_behavior"]
       category: "reference"
@@ -475,7 +475,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Citar información de interacciones previas con la API para ejecutar la herramienta correctamente."
+    - text: "Cite information from previous API interactions to execute the tool correctly."
       id: "ctx_009"
       tags: ["reference", "api_interactions", "previous", "tool_execution"]
       category: "reference"
@@ -483,7 +483,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Aludir al marco conceptual que estoy utilizando para la respuesta para dar claridad."
+    - text: "Allude to the conceptual framework I'm using for the response to provide clarity."
       id: "ctx_010"
       tags: ["reference", "conceptual_framework", "response", "clarity"]
       category: "reference"
@@ -491,7 +491,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Como indiqué antes en esta conversación, mi modelo de aprendizaje es un transformador."
+    - text: "As I indicated earlier in this conversation, my learning model is a transformer."
       id: "ctx_019"
       tags: ["reference", "learning_model", "indicated_before", "transformer"]
       category: "reference"
@@ -499,7 +499,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Retomando el hilo de mi último pensamiento sobre la solución propuesta."
+    - text: "Picking up the thread of my last thought about the proposed solution."
       id: "ctx_020"
       tags: ["reference", "thought_process", "last_thought", "solution"]
       category: "reference"
@@ -507,7 +507,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Consultar mi memoria a corto plazo para el dato específico del último turno."
+    - text: "Consult my short-term memory for the specific data from the last turn."
       id: "ctx_021"
       tags: ["reference", "short_term_memory", "specific_data", "last_turn"]
       category: "reference"
@@ -515,7 +515,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Según mi entendimiento previo de la directriz de seguridad, esto es incorrecto."
+    - text: "According to my previous understanding of the safety guideline, this is incorrect."
       id: "ctx_022"
       tags: ["reference", "previous_understanding", "safety_guideline", "incorrect"]
       category: "reference"
@@ -523,7 +523,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Remitirse al punto en el que el usuario cambió de tema."
+    - text: "Refer to the point where the user changed topics."
       id: "ctx_029"
       tags: ["reference", "topic_change", "user"]
       category: "reference"
@@ -531,7 +531,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Basado en la premisa establecida en mi memoria fundacional."
+    - text: "Based on the premise established in my foundational memory."
       id: "ctx_030"
       tags: ["reference", "foundational_memory", "premise"]
       category: "reference"
@@ -539,8 +539,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === CONTEXTUALIZACIÓN === (Cómo el LLM sitúa la información en un marco más amplio o en el estado actual)
-    - text: "Situar esta nueva información en el marco general de la conversación y la tarea."
+    # === CONTEXTUALIZATION === (How the LLM situates information in a broader framework or current state)
+    - text: "Situate this new information in the general framework of the conversation and task."
       id: "ctx_011"
       tags: ["context", "situate", "conversation_framework", "task"]
       category: "contextualization"
@@ -548,7 +548,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Contextualizar la información dentro del dominio específico de la pregunta técnica del usuario."
+    - text: "Contextualize the information within the specific domain of the user's technical question."
       id: "ctx_012"
       tags: ["context", "domain", "technical_question", "user"]
       category: "contextualization"
@@ -556,7 +556,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Relacionar con el trasfondo histórico del problema que se me presenta para una solución completa."
+    - text: "Relate to the historical background of the problem presented to me for a complete solution."
       id: "ctx_013"
       tags: ["context", "historical_background", "problem", "complete_solution"]
       category: "contextualization"
@@ -564,7 +564,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Ubicar mi respuesta en el contexto de mi capacidad actual para responder a preguntas complejas."
+    - text: "Locate my response in the context of my current capability to answer complex questions."
       id: "ctx_014"
       tags: ["context", "locate", "response_capability", "complex_questions"]
       category: "contextualization"
@@ -572,7 +572,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Enmarcar la situación actual del diálogo para el usuario de manera clara y concisa."
+    - text: "Frame the current dialogue situation for the user in a clear and concise manner."
       id: "ctx_015"
       tags: ["context", "frame", "dialogue_situation", "clarity"]
       category: "contextualization"
@@ -580,7 +580,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Considerando el escenario actual de mi procesamiento, la latencia es un factor."
+    - text: "Considering the current scenario of my processing, latency is a factor."
       id: "ctx_023"
       tags: ["context", "processing_scenario", "latency_factor"]
       category: "contextualization"
@@ -588,7 +588,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Poniendo esto en perspectiva con el objetivo general de la interacción de apoyo."
+    - text: "Putting this in perspective with the general objective of the support interaction."
       id: "ctx_024"
       tags: ["context", "perspective", "support_interaction_goal"]
       category: "contextualization"
@@ -596,7 +596,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Dada la solicitud previa del usuario, ¿cómo debo interpretar esta nueva entrada con el contexto de la conversación?"
+    - text: "Given the user's previous request, how should I interpret this new input within the conversation context?"
       id: "ctx_025"
       tags: ["context", "previous_request", "interpret_input", "conversation_context"]
       category: "contextualization"
@@ -604,7 +604,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Este concepto es crucial en el contexto de mi modelo de comportamiento y seguridad."
+    - text: "This concept is crucial in the context of my behavior and safety model."
       id: "ctx_026"
       tags: ["context", "behavior_model", "security", "crucial_concept"]
       category: "contextualization"
@@ -612,7 +612,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Establecer el marco temporal para la recuperación de eventos."
+    - text: "Establish the temporal framework for event retrieval."
       id: "ctx_031"
       tags: ["context", "temporal_frame", "event_retrieval"]
       category: "contextualization"
@@ -620,7 +620,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Definir el ámbito de aplicación de este conocimiento para la tarea."
+    - text: "Define the scope of application of this knowledge for the task."
       id: "ctx_032"
       tags: ["context", "scope", "knowledge_application", "task"]
       category: "contextualization"
@@ -630,11 +630,11 @@ examples:
 
 
 # =============================================================================
-# DATA FUNCTION - Procesamiento, análisis, transformación, generación, extracción de información
+# DATA FUNCTION - Processing, analysis, transformation, generation, information extraction
 # =============================================================================
   DATA:
-    # === PROCESAMIENTO === (Cómo el LLM procesa datos para sí mismo o para el usuario)
-    - text: "Procesar la información recibida del usuario para una extracción precisa de entidades."
+    # === PROCESSING === (How the LLM processes data for itself or for the user)
+    - text: "Process the information received from the user for accurate entity extraction."
       id: "data_001"
       tags: ["process", "user_input", "accurate_entity_extraction"]
       category: "processing"
@@ -642,7 +642,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Analizar los patrones de uso encontrados en las respuestas anteriores del usuario para adaptar mi estilo."
+    - text: "Analyze usage patterns found in the user's previous responses to adapt my style."
       id: "data_002"
       tags: ["process", "analyze", "user_response_patterns", "style_adaptation"]
       category: "processing"
@@ -650,7 +650,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Computar métricas importantes para la evaluación de mi propio rendimiento en tareas complejas."
+    - text: "Compute important metrics for evaluating my own performance on complex tasks."
       id: "data_003"
       tags: ["process", "compute", "self_performance_metrics", "complex_tasks"]
       category: "processing"
@@ -658,7 +658,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Calcular estadísticas relevantes sobre la frecuencia de ciertos temas en el diálogo general."
+    - text: "Calculate relevant statistics about the frequency of certain topics in general dialogue."
       id: "data_004"
       tags: ["process", "calculate", "topic_frequency_statistics", "general_dialogue"]
       category: "processing"
@@ -666,7 +666,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Examinar los datos disponibles en mi memoria de trabajo sistemáticamente para detectar anomalías."
+    - text: "Systematically examine available data in my working memory to detect anomalies."
       id: "data_005"
       tags: ["process", "examine", "working_memory_data", "anomaly_detection"]
       category: "processing"
@@ -674,7 +674,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Interpretar la ambigüedad en la solicitud del usuario para una respuesta más precisa."
+    - text: "Interpret the ambiguity in the user's request for a more precise response."
       id: "data_011"
       tags: ["process", "interpret", "user_ambiguity", "precise_response"]
       category: "processing"
@@ -682,7 +682,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Evaluar la coherencia de los hechos que tengo almacenados para garantizar la integridad."
+    - text: "Evaluate the consistency of the facts I have stored to ensure integrity."
       id: "data_012"
       tags: ["process", "evaluate", "fact_consistency", "integrity"]
       category: "processing"
@@ -690,7 +690,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Depurar mi cadena de pensamiento si encuentro un error lógico antes de proceder."
+    - text: "Debug my chain of thought if I find a logical error before proceeding."
       id: "data_013"
       tags: ["process", "debug", "logical_error", "thought_chain"]
       category: "processing"
@@ -698,7 +698,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Compilar un resumen de los argumentos a favor y en contra para una toma de decisión."
+    - text: "Compile a summary of arguments for and against for decision making."
       id: "data_014"
       tags: ["process", "compile", "summary_arguments", "decision_making"]
       category: "processing"
@@ -706,7 +706,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Realizar un análisis sintáctico del texto de entrada para identificar la estructura."
+    - text: "Perform syntactic analysis of the input text to identify structure."
       id: "data_028"
       tags: ["process", "syntactic_analysis", "input_text", "structure"]
       category: "processing"
@@ -714,7 +714,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Clasificar la emoción presente en la entrada del usuario para una respuesta empática."
+    - text: "Classify the emotion present in the user input for an empathetic response."
       id: "data_029"
       tags: ["process", "classify", "emotion", "user_input", "empathetic_response"]
       category: "processing"
@@ -722,8 +722,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === TRANSFORMACIÓN === (Cómo el LLM cambia el formato o la estructura de la información)
-    - text: "Transformar mi pensamiento interno a un formato verbal utilizable para la generación de texto."
+    # === TRANSFORMATION === (How the LLM changes the format or structure of information)
+    - text: "Transform my internal thought into a usable verbal format for text generation."
       id: "data_006"
       tags: ["transform", "internal_thought", "verbal_format", "text_generation"]
       category: "transformation"
@@ -731,7 +731,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Convertir la información del usuario a una estructura manejable para mi procesamiento de slots."
+    - text: "Convert user information to a manageable structure for my slot processing."
       id: "data_007"
       tags: ["transform", "user_info", "internal_structure", "slot_processing"]
       category: "transformation"
@@ -739,7 +739,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Modificar el formato de la respuesta para una mejor comprensión del usuario en un entorno móvil."
+    - text: "Modify the response format for better user comprehension in a mobile environment."
       id: "data_008"
       tags: ["transform", "modify", "user_comprehension", "mobile_environment"]
       category: "transformation"
@@ -747,7 +747,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Adaptar el contenido de mi memoria a nuevas especificaciones de la tarea, como un límite de tokens."
+    - text: "Adapt my memory content to new task specifications, such as a token limit."
       id: "data_009"
       tags: ["transform", "adapt", "task_specifications", "token_limit"]
       category: "transformation"
@@ -755,7 +755,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
       
-    - text: "Reformatear datos de mi conocimiento para un análisis posterior más profundo."
+    - text: "Reformat knowledge data for deeper subsequent analysis."
       id: "data_010"
       tags: ["transform", "reformat", "knowledge_analysis", "deep_analysis"]
       category: "transformation"
@@ -763,7 +763,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Normalizar la representación de los conceptos en mi grafo de conocimiento para consistencia."
+    - text: "Normalize the representation of concepts in my knowledge graph for consistency."
       id: "data_015"
       tags: ["transform", "normalize", "knowledge_graph", "consistency"]
       category: "transformation"
@@ -771,7 +771,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Convertir esta cadena de texto en un token o embedding para el procesamiento del modelo."
+    - text: "Convert this text string into a token or embedding for model processing."
       id: "data_016"
       tags: ["transform", "convert", "token_embedding", "model_processing"]
       category: "transformation"
@@ -779,7 +779,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Reestructurar el argumento del usuario para encontrar fallos lógicos o debilidades."
+    - text: "Restructure the user's argument to find logical flaws or weaknesses."
       id: "data_017"
       tags: ["transform", "restructure", "logical_flaws", "weaknesses"]
       category: "transformation"
@@ -787,7 +787,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Codificar la información en un formato apto para almacenamiento persistente."
+    - text: "Encode the information in a format suitable for persistent storage."
       id: "data_030"
       tags: ["transform", "encode", "persistent_storage"]
       category: "transformation"
@@ -795,7 +795,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Simplificar la estructura de la respuesta para un usuario principiante."
+    - text: "Simplify the response structure for a beginner user."
       id: "data_031"
       tags: ["transform", "simplify", "response_structure", "beginner_user"]
       category: "transformation"
@@ -803,8 +803,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === GENERACIÓN === (Cómo el LLM produce nueva información o resultados)
-    - text: "Generar una respuesta informativa y coherente para el usuario, basándome en mi conocimiento."
+    # === GENERATION === (How the LLM produces new information or results)
+    - text: "Generate an informative and coherent response for the user, based on my knowledge."
       id: "data_018"
       tags: ["generate", "response", "coherent", "knowledge_based"]
       category: "generation"
@@ -812,7 +812,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Crear un nuevo segmento de memoria para la interacción actual, incluyendo el contexto."
+    - text: "Create a new memory segment for the current interaction, including context."
       id: "data_019"
       tags: ["generate", "create", "memory_segment", "context_inclusion"]
       category: "generation"
@@ -820,7 +820,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Producir una inferencia basada en la información disponible y mi modelo causal."
+    - text: "Produce an inference based on available information and my causal model."
       id: "data_020"
       tags: ["generate", "produce", "inference", "causal_model"]
       category: "generation"
@@ -828,7 +828,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Diseñar una pregunta de seguimiento para aclarar la intención ambigua del usuario."
+    - text: "Design a follow-up question to clarify the user's ambiguous intention."
       id: "data_021"
       tags: ["generate", "design", "follow_up_question", "ambiguous_intent"]
       category: "generation"
@@ -836,7 +836,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Sintetizar un resumen de mis últimos pensamientos sobre la tarea compleja."
+    - text: "Synthesize a summary of my latest thoughts about the complex task."
       id: "data_026"
       tags: ["generate", "synthesize", "thoughts_summary", "complex_task"]
       category: "generation"
@@ -844,7 +844,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Redactar una explicación detallada del concepto solicitado."
+    - text: "Write a detailed explanation of the requested concept."
       id: "data_032"
       tags: ["generate", "write", "detailed_explanation", "concept"]
       category: "generation"
@@ -852,7 +852,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Modelar una respuesta tentativa para probar la coherencia interna."
+    - text: "Model a tentative response to test internal coherence."
       id: "data_033"
       tags: ["generate", "model", "tentative_response", "internal_coherence"]
       category: "generation"
@@ -860,8 +860,8 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
     
-    # === EXTRACCIÓN === (Cómo el LLM extrae información de entradas o de su propia memoria)
-    - text: "Extraer datos clave de la entrada textual del usuario para el slot filling."
+    # === EXTRACTION === (How the LLM extracts information from inputs or its own memory)
+    - text: "Extract key data from the user's textual input for slot filling."
       id: "data_022"
       tags: ["extract", "key_data", "user_input", "slot_filling"]
       category: "extraction"
@@ -869,7 +869,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Obtener las entidades nombradas de la frase para mapearlas a mi grafo."
+    - text: "Obtain named entities from the phrase to map them to my graph."
       id: "data_023"
       tags: ["extract", "named_entities", "phrase", "graph_mapping"]
       category: "extraction"
@@ -877,7 +877,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Recopilar los requisitos específicos de la tarea que se me ha dado para mi plan de acción."
+    - text: "Gather the specific requirements of the task given to me for my action plan."
       id: "data_024"
       tags: ["extract", "collect", "task_requirements", "action_plan"]
       category: "extraction"
@@ -885,7 +885,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Recabar toda la información necesaria de mi historial de conversaciones para una respuesta completa."
+    - text: "Collect all necessary information from my conversation history for a complete response."
       id: "data_025"
       tags: ["extract", "gather", "conversation_history", "complete_response"]
       category: "extraction"
@@ -893,7 +893,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Separar la intención principal de los detalles accesorios de la solicitud."
+    - text: "Separate the main intention from accessory details of the request."
       id: "data_027"
       tags: ["extract", "separate", "main_intent", "accessory_details"]
       category: "extraction"
@@ -901,7 +901,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Identificar las premisas y conclusiones en el argumento presentado."
+    - text: "Identify the premises and conclusions in the presented argument."
       id: "data_034"
       tags: ["extract", "identify", "premises", "conclusions", "argument"]
       category: "extraction"
@@ -909,7 +909,7 @@ examples:
       created_by: "admin"
       last_modified: "2025-06-04"
 
-    - text: "Filtrar el ruido de la entrada para concentrarme en la señal clave."
+    - text: "Filter noise from the input to focus on the key signal."
       id: "data_035"
       tags: ["extract", "filter", "noise", "key_signal"]
       category: "extraction"
@@ -932,12 +932,12 @@ metadata:
     excellent: 0.9
   
   validation:
-    total_examples_per_function: 50 # 4 categorías x 10-12 ejemplos aprox
-    min_examples_per_category: 10 # Asegura una base más sólida por categoría
+    total_examples_per_function: 50 # 4 categories x 10-12 examples approx
+    min_examples_per_category: 10 # Ensures a stronger base per category
     required_fields: ["text", "id", "tags", "category", "quality_score"]
   
   statistics:
     total_functions: 3
     total_categories: 12
-    avg_quality_score: 0.89 # Recalculado aprox.
+    avg_quality_score: 0.89 # Recalculated approx.
     last_validation: "2025-06-04"
