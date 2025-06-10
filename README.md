@@ -107,10 +107,9 @@ npm install
 ```bash
 # Start the MCP server (in clay/ directory)
 node server.js
-
-# The server exposes Clay tools to your LLM via MCP
-# Connect your LLM client to use Clay's memory capabilities
 ```
+
+**For Claude Desktop integration**, you'll need to configure MCP settings. See [`clay/README.md`](clay/README.md) for detailed Claude Desktop configuration instructions.
 
 ### Using CXD Independently
 
@@ -159,7 +158,7 @@ pytest tests/
 ## 🔧 Advanced Configuration
 
 See individual project READMEs for detailed configuration:
-- [`clay/README.md`](clay/README.md) - Core memory system setup
+- [`clay/README.md`](clay/README.md) - Core memory system setup and Claude Desktop configuration
 - [`cxd-classifier/README.md`](cxd-classifier/README.md) - Standalone classification tuning
 
 ## 🤖🤝👨‍💻 About This Project

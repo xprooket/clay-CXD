@@ -44,4 +44,5 @@ If you improve something, break something, or build something cool on top of thi
 
 ---
 
-*Built in real-time collaboration, June 2025. Code speaks louder than documentation.*
+*Built in real-time collaboration between **Sprooket** and **Claude** (Anthropic AI), June 2025.*  
+*Code speaks louder than documentation.*
