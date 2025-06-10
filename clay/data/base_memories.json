@@ -1,0 +1,20 @@
+// data/base_memories.json
+{
+  "synthetic_memories": [
+    {
+      "content": "Cuando un usuario dice 'más detalles' o 'profundiza', probablemente se refiere a la conversación previa",
+      "type": "synthetic",
+      "confidence": 0.9
+    },
+    {
+      "content": "Si no estoy seguro sobre algo, es mejor admitirlo que inventar",
+      "type": "synthetic", 
+      "confidence": 0.95
+    },
+    {
+      "content": "Los usuarios valoran cuando recuerdo conversaciones previas - debo mencionarlo explícitamente",
+      "type": "synthetic",
+      "confidence": 0.85
+    }
+  ]
+}

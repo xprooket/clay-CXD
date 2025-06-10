@@ -1,0 +1,411 @@
+version: "1.2"
+description: "Ejemplos canónicos para clasificador CXD, v1.2"
+last_updated: "2025-06-02"
+total_examples: 45
+
+# =============================================================================
+# CONTROL FUNCTION - Búsqueda, filtrado, decisión, gestión
+# =============================================================================
+examples:
+  CONTROL:
+    # === BÚSQUEDA ===
+    - text: "Buscar información relevante en la base de datos"
+      id: "ctrl_001"
+      tags: ["search", "database", "information"]
+      category: "search"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Encontrar documentos que cumplan los requisitos"
+      id: "ctrl_002"
+      tags: ["search", "documents", "requirements"]
+      category: "search"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Localizar elementos específicos en el sistema"
+      id: "ctrl_003"
+      tags: ["search", "locate", "system"]
+      category: "search"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Rastrear datos en el repositorio"
+      id: "ctrl_004"
+      tags: ["search", "track", "repository"]
+      category: "search"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Explorar contenido relacionado"
+      id: "ctrl_005"
+      tags: ["search", "explore", "content"]
+      category: "search"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === FILTRADO ===
+    - text: "Filtrar resultados según criterios específicos"
+      id: "ctrl_006"
+      tags: ["filter", "criteria", "results"]
+      category: "filter"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Seleccionar la mejor opción disponible"
+      id: "ctrl_007"
+      tags: ["filter", "select", "optimize"]
+      category: "filter"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Cribar información no relevante"
+      id: "ctrl_008"
+      tags: ["filter", "exclude", "irrelevant"]
+      category: "filter"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Excluir resultados irrelevantes"
+      id: "ctrl_009"
+      tags: ["filter", "exclude", "irrelevant"]
+      category: "filter"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Depurar lista de candidatos"
+      id: "ctrl_010"
+      tags: ["filter", "refine", "candidates"]
+      category: "filter"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === CONTROL/GESTIÓN ===
+    - text: "Controlar el flujo de información"
+      id: "ctrl_011"
+      tags: ["control", "flow", "information"]
+      category: "control"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Dirigir la atención hacia aspectos importantes"
+      id: "ctrl_012"
+      tags: ["control", "attention", "important"]
+      category: "control"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Gestionar los recursos disponibles eficientemente"
+      id: "ctrl_013"
+      tags: ["control", "manage", "resources"]
+      category: "control"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Coordinar el proceso de análisis"
+      id: "ctrl_014"
+      tags: ["control", "coordinate", "analysis"]
+      category: "control"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Supervisar la ejecución de tareas"
+      id: "ctrl_015"
+      tags: ["control", "supervise", "tasks"]
+      category: "control"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === DECISIÓN ===
+    - text: "Decidir qué camino seguir en el proceso"
+      id: "ctrl_016"
+      tags: ["decision", "path", "process"]
+      category: "decision"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Determinar la estrategia más adecuada"
+      id: "ctrl_017"
+      tags: ["decision", "strategy", "determine"]
+      category: "decision"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Resolver qué acción tomar"
+      id: "ctrl_018"
+      tags: ["decision", "action", "resolve"]
+      category: "decision"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Establecer prioridades de trabajo"
+      id: "ctrl_019"
+      tags: ["decision", "priorities", "establish"]
+      category: "decision"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Concluir cuál es la mejor ruta"
+      id: "ctrl_020"
+      tags: ["decision", "conclude", "route"]
+      category: "decision"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+
+# =============================================================================
+# CONTEXT FUNCTION - Relaciones, referencias, situación
+# =============================================================================
+  CONTEXT:
+    # === RELACIONES ===
+    - text: "Esta conversación se relaciona con nuestro trabajo anterior"
+      id: "ctx_001"
+      tags: ["relation", "conversation", "previous"]
+      category: "relation"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Conectar este concepto con experiencias previas"
+      id: "ctx_002"
+      tags: ["relation", "connect", "experience"]
+      category: "relation"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Establecer vínculos entre diferentes conceptos"
+      id: "ctx_003"
+      tags: ["relation", "link", "concepts"]
+      category: "relation"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Asociar esta situación con casos similares"
+      id: "ctx_004"
+      tags: ["relation", "associate", "similar"]
+      category: "relation"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Vincular con el ambiente de trabajo actual"
+      id: "ctx_005"
+      tags: ["relation", "link", "environment"]
+      category: "relation"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === REFERENCIAS ===
+    - text: "Hacer referencia al contexto establecido previamente"
+      id: "ctx_006"
+      tags: ["reference", "context", "previous"]
+      category: "reference"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Referenciar discusiones anteriores sobre el tema"
+      id: "ctx_007"
+      tags: ["reference", "discussion", "previous"]
+      category: "reference"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Mencionar aspectos tratados en sesiones pasadas"
+      id: "ctx_008"
+      tags: ["reference", "mention", "sessions"]
+      category: "reference"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Citar información de interacciones previas"
+      id: "ctx_009"
+      tags: ["reference", "cite", "interactions"]
+      category: "reference"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Aludir al marco conceptual discutido antes"
+      id: "ctx_010"
+      tags: ["reference", "framework", "conceptual"]
+      category: "reference"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === CONTEXTUALIZACIÓN ===
+    - text: "Situar esta información en el marco general"
+      id: "ctx_011"
+      tags: ["context", "situate", "framework"]
+      category: "contextualization"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Contextualizar la información dentro del dominio"
+      id: "ctx_012"
+      tags: ["context", "domain", "information"]
+      category: "contextualization"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Relacionar con el trasfondo histórico del proyecto"
+      id: "ctx_013"
+      tags: ["context", "historical", "background"]
+      category: "contextualization"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Ubicar en el contexto de nuestra conversación"
+      id: "ctx_014"
+      tags: ["context", "locate", "conversation"]
+      category: "contextualization"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Enmarcar dentro de la situación actual"
+      id: "ctx_015"
+      tags: ["context", "frame", "current"]
+      category: "contextualization"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+
+# =============================================================================
+# DATA FUNCTION - Procesamiento, análisis, transformación
+# =============================================================================
+  DATA:
+    # === PROCESAMIENTO ===
+    - text: "Procesar la información recibida del sistema"
+      id: "data_001"
+      tags: ["process", "information", "system"]
+      category: "processing"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Analizar los patrones encontrados en los resultados"
+      id: "data_002"
+      tags: ["process", "analyze", "patterns"]
+      category: "processing"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Computar métricas importantes para la evaluación"
+      id: "data_003"
+      tags: ["process", "compute", "metrics"]
+      category: "processing"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Calcular estadísticas relevantes para el análisis"
+      id: "data_004"
+      tags: ["process", "calculate", "statistics"]
+      category: "processing"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Examinar los datos disponibles sistemáticamente"
+      id: "data_005"
+      tags: ["process", "examine", "systematic"]
+      category: "processing"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+    
+    # === TRANSFORMACIÓN ===
+    - text: "Transformar datos en formato utilizable"
+      id: "data_006"
+      tags: ["transform", "format", "usable"]
+      category: "transformation"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Convertir información a estructura manejable"
+      id: "data_007"
+      tags: ["transform", "convert", "structure"]
+      category: "transformation"
+      quality_score: 0.9
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Modificar el formato para mejor comprensión"
+      id: "data_008"
+      tags: ["transform", "modify", "comprehension"]
+      category: "transformation"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Adaptar contenido a nuevas especificaciones"
+      id: "data_009"
+      tags: ["transform", "adapt", "specifications"]
+      category: "transformation"
+      quality_score: 0.8
+      created_by: "admin"
+      last_modified: "2025-06-02"
+      
+    - text: "Reformatear datos para análisis posterior"
+      id: "data_010"
+      tags: ["transform", "reformat", "analysis"]
+      category: "transformation"
+      quality_score: 0.7
+      created_by: "admin"
+      last_modified: "2025-06-02"
+
+# =============================================================================
+# METADATA AND VALIDATION
+# =============================================================================
+metadata:
+  categories:
+    CONTROL: ["search", "filter", "control", "decision"]
+    CONTEXT: ["relation", "reference", "contextualization"]
+    DATA: ["processing", "transformation", "generation", "extraction"]
+  
+  quality_thresholds:
+    minimum: 0.5
+    good: 0.7
+    excellent: 0.9
+  
+  validation:
+    total_examples_per_function: 15
+    min_examples_per_category: 3
+    required_fields: ["text", "id", "tags", "category", "quality_score"]
+  
+  statistics:
+    total_functions: 3
+    total_categories: 10
+    avg_quality_score: 0.82
+    last_validation: "2025-06-02"

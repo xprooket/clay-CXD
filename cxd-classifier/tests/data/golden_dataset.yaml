@@ -1,0 +1,271 @@
+version: "1.0"
+description: "Golden dataset for CXD Classifier regression testing"
+created: "2025-06-02"
+total_examples: 30
+
+# =============================================================================
+# CONTROL FUNCTION TEST CASES
+# =============================================================================
+control_examples:
+  - text: "Buscar información relevante en la base de datos"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["search", "database", "information"]
+    difficulty: "easy"
+    
+  - text: "Filtrar resultados según criterios específicos"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS" 
+    expected_confidence_min: 0.8
+    tags: ["filter", "criteria", "results"]
+    difficulty: "easy"
+    
+  - text: "¿Podrías ayudarme a encontrar documentos sobre machine learning?"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["search", "question", "documents"]
+    difficulty: "medium"
+    
+  - text: "Necesito que selecciones los mejores candidatos"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["select", "filter", "candidates"]
+    difficulty: "medium"
+    
+  - text: "Decidir qué estrategia implementar requiere más análisis"
+    expected_function: "CONTROL"
+    expected_state: "UNCERTAIN"
+    expected_confidence_min: 0.5
+    tags: ["decision", "strategy", "complex"]
+    difficulty: "hard"
+    
+  - text: "El proceso de búsqueda falló debido a errores de conexión"
+    expected_function: "CONTROL"
+    expected_state: "FAILURE"
+    expected_confidence_min: 0.6
+    tags: ["search", "failure", "error"]
+    difficulty: "medium"
+    
+  - text: "Gestionar eficientemente los recursos disponibles en el proyecto"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["manage", "resources", "project"]
+    difficulty: "medium"
+    
+  - text: "Dirigir la atención hacia los aspectos más críticos del problema"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["direct", "attention", "critical"]
+    difficulty: "medium"
+    
+  - text: "Supervisar que todas las tareas se ejecuten correctamente"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["supervise", "tasks", "execution"]
+    difficulty: "medium"
+    
+  - text: "Determinar cuál es la mejor ruta a seguir en esta situación"
+    expected_function: "CONTROL"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["determine", "route", "decision"]
+    difficulty: "medium"
+
+# =============================================================================
+# CONTEXT FUNCTION TEST CASES
+# =============================================================================
+context_examples:
+  - text: "Esta conversación se relaciona con nuestro trabajo anterior"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["relation", "conversation", "previous"]
+    difficulty: "easy"
+    
+  - text: "Conectando con lo que discutimos ayer sobre el proyecto"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["connect", "previous", "project"]
+    difficulty: "easy"
+    
+  - text: "Haciendo referencia al contexto que establecimos previamente"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["reference", "context", "previous"]
+    difficulty: "medium"
+    
+  - text: "El trasfondo histórico de este problema es muy complejo"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["background", "historical", "complex"]
+    difficulty: "medium"
+    
+  - text: "Situando esta información en el marco del proyecto actual"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["situate", "framework", "current"]
+    difficulty: "medium"
+    
+  - text: "No logro vincular esta idea con nuestras discusiones anteriores"
+    expected_function: "CONTEXT"
+    expected_state: "FAILURE"
+    expected_confidence_min: 0.5
+    tags: ["link", "failure", "previous"]
+    difficulty: "hard"
+    
+  - text: "El contexto de esta pregunta no está completamente claro"
+    expected_function: "CONTEXT"
+    expected_state: "UNCERTAIN"
+    expected_confidence_min: 0.5
+    tags: ["context", "unclear", "question"]
+    difficulty: "hard"
+    
+  - text: "Asociando esta situación con casos similares que hemos visto"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["associate", "similar", "cases"]
+    difficulty: "medium"
+    
+  - text: "Enmarcando el problema dentro de nuestro dominio de trabajo"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["frame", "domain", "work"]
+    difficulty: "medium"
+    
+  - text: "Citando información de nuestras interacciones previas del mes pasado"
+    expected_function: "CONTEXT"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["cite", "interactions", "previous"]
+    difficulty: "medium"
+
+# =============================================================================
+# DATA FUNCTION TEST CASES  
+# =============================================================================
+data_examples:
+  - text: "Procesar la información recibida del sistema externo"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["process", "information", "system"]
+    difficulty: "easy"
+    
+  - text: "Analizar los patrones encontrados en los resultados"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["analyze", "patterns", "results"]
+    difficulty: "easy"
+    
+  - text: "Transformar los datos al formato requerido por la aplicación"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.9
+    tags: ["transform", "format", "application"]
+    difficulty: "easy"
+    
+  - text: "Generar un resumen comprehensivo de todos los hallazgos"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["generate", "summary", "findings"]
+    difficulty: "medium"
+    
+  - text: "Extraer las métricas más importantes del dataset completo"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["extract", "metrics", "dataset"]
+    difficulty: "medium"
+    
+  - text: "Calcular estadísticas detalladas para el informe final"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.8
+    tags: ["calculate", "statistics", "report"]
+    difficulty: "medium"
+    
+  - text: "El procesamiento de datos falló por problemas de memoria"
+    expected_function: "DATA"
+    expected_state: "FAILURE"
+    expected_confidence_min: 0.6
+    tags: ["processing", "failure", "memory"]
+    difficulty: "medium"
+    
+  - text: "Organizando la información de manera sistemática y estructurada"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.7
+    tags: ["organize", "systematic", "structured"]
+    difficulty: "medium"
+    
+  - text: "Derivar conclusiones significativas basadas en el análisis completo"
+    expected_function: "DATA"
+    expected_state: "SUCCESS"
+    expected_confidence_min: 0.6
+    tags: ["derive", "conclusions", "analysis"]
+    difficulty: "hard"
+    
+  - text: "Computar métricas de rendimiento parciales debido a datos incompletos"
+    expected_function: "DATA"
+    expected_state: "PARTIAL"
+    expected_confidence_min: 0.5
+    tags: ["compute", "partial", "incomplete"]
+    difficulty: "hard"
+
+# =============================================================================
+# METADATA AND VALIDATION RULES
+# =============================================================================
+metadata:
+  functions:
+    CONTROL: 10
+    CONTEXT: 10  
+    DATA: 10
+  
+  states:
+    SUCCESS: 22
+    FAILURE: 3
+    UNCERTAIN: 2
+    PARTIAL: 3
+  
+  difficulty_levels:
+    easy: 6      # High confidence, clear examples
+    medium: 18   # Moderate confidence, typical cases
+    hard: 6      # Lower confidence, edge cases
+  
+  validation_rules:
+    min_confidence_easy: 0.7
+    min_confidence_medium: 0.5
+    min_confidence_hard: 0.4
+    
+    max_classification_time_ms: 100
+    max_batch_processing_time_ms: 1000
+    
+    required_accuracy_overall: 0.85
+    required_accuracy_easy: 0.95
+    required_accuracy_medium: 0.85
+    required_accuracy_hard: 0.70
+  
+  test_scenarios:
+    basic_classification: true
+    batch_processing: true
+    confidence_calibration: true
+    failure_handling: true
+    performance_benchmarks: true
+    
+  regression_thresholds:
+    accuracy_drop_alert: 0.05      # Alert if accuracy drops > 5%
+    speed_degradation_alert: 2.0   # Alert if speed degrades > 2x
+    memory_increase_alert: 1.5     # Alert if memory usage increases > 1.5x

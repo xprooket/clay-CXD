@@ -1,0 +1,45 @@
+{
+  "name": "clay-mcp-server",
+  "version": "1.0.0",
+  "description": "Clay Memory System - MCP Server in JavaScript with Python Bridge",
+  "type": "module",
+  "main": "server.js",
+  "bin": {
+    "clay-server": "./server.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --inspect server.js",
+    "test": "echo \"No tests specified yet\"",
+    "setup": "node setup_python_bridge.js",
+    "check-python": "python --version && python -c \"import sqlite3; print('SQLite OK')\""
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ai",
+    "memory",
+    "context",
+    "mcp",
+    "claude",
+    "assistant"
+  ],
+  "author": "Clay Project",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clay-project/clay"
+  },
+  "files": [
+    "server.js",
+    "python_bridge/",
+    "README.md"
+  ]
+}

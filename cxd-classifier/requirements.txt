@@ -1,0 +1,29 @@
+# CXD Classifier - Core Dependencies
+
+# Dependencias principales de Pydantic para configuración y validación
+pydantic>=2.0,<3.0
+pydantic-settings>=2.0,<3.0
+
+# Para leer archivos de configuración y ejemplos en formato YAML
+PyYAML>=5.0,<7.0
+
+# Para operaciones numéricas, especialmente en embeddings y almacenes de vectores
+numpy>=1.20,<2.0
+
+# Para el modelo de embedding basado en SentenceTransformers
+sentence-transformers>=2.0,<3.0
+
+# PyTorch, a menudo una dependencia de sentence-transformers y necesario para CUDA/MPS
+torch>=1.8,<3.0
+
+# Para el almacén de vectores de alto rendimiento FAISS (versión CPU)
+# Si necesitas soporte para GPU, considera faiss-gpu y los drivers CUDA apropiados.
+faiss-cpu>=1.7,<2.0
+# faiss-gpu>=1.7,<2.0  # Alternative for GPU support
+
+# Development and testing
+pytest>=7.4.0
+pytest-cov
+black
+isort
+mypy
