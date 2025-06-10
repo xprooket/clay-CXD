@@ -86,7 +86,7 @@ examples:
       tags: ["search", "data"]
 ```
 
-📄 See: [`docs/Formato de Ejemplos Canónicos (YAML) — CXD Classifier.md`](docs/Formato%20de%20Ejemplos%20Canónicos%20%28YAML%29%20—%20CXD%20Classifier.md)
+📄 See: [`docs/Canonical Examples Format (YAML) — CXD Classifier.md`](docs/Canonical%20Examples%20Format%20%28YAML%29%20—%20CXD%20Classifier.md)
 
 ---
 
@@ -113,9 +113,9 @@ Markers: `@pytest.mark.unit`, `integration`, `performance`, `slow`, `gpu`
 
 ## 📚 Documentation
 
-- [Modular Structure](docs/DETAILED_ARCHITECTURE.md)
-- [YAML Examples Format](docs/Formato%20de%20Ejemplos%20Canónicos%20%28YAML%29%20—%20CXD%20Classifier.md)
-- [Internal API Reference](docs/Referencia%20Técnica%20del%20API%20Interno%20—%20CXD%20Classifier.md)
+- [Detailed Architecture](docs/DETAILED_ARCHITECTURE.md)
+- [Canonical Examples Format (YAML)](docs/Canonical%20Examples%20Format%20%28YAML%29%20—%20CXD%20Classifier.md)
+- [Internal API Technical Reference](docs/Internal%20API%20Technical%20Reference%20—%20CXD%20Classifier.md)
 
 ---
 
