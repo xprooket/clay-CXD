@@ -40,8 +40,13 @@ async function runPythonTool(toolName, args = []) {
       return;
     }
     
-    // Spawn Python process (use venv Python)
-    const pythonProcess = spawn('D:\\claude\\clay\\venv\\Scripts\\python.exe', [scriptPath, ...args], {
+    // Spawn Python process (use local venv Python)
+    const isWindows = process.platform === 'win32';
+    const pythonExecutable = isWindows 
+      ? path.join(CLAY_DIR, 'venv', 'Scripts', 'python.exe')
+      : path.join(CLAY_DIR, 'venv', 'bin', 'python');
+    
+    const pythonProcess = spawn(pythonExecutable, [scriptPath, ...args], {
       cwd: CLAY_DIR,
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { 

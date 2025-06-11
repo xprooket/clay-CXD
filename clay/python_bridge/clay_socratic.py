@@ -10,7 +10,7 @@ import os
 import json
 
 
-# FORCE UTF-8 I/O - CRITICAL para Windows
+# FORCE UTF-8 I/O - CRITICAL for Windows
 if sys.platform.startswith('win'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
     sys.stderr.reconfigure(encoding='utf-8', errors='replace')
@@ -25,12 +25,12 @@ try:
     from clay.socratic import SocraticEngine
 except ImportError as e:
     print(f"[ERROR] Error importing Clay: {e}", file=sys.stderr)
-    print("[ERROR] No se pudo importar Clay")
+    print("[ERROR] Could not import Clay")
     sys.exit(1)
 
 def main():
     if len(sys.argv) < 2:
-        print("[ERROR] Faltan argumentos")
+        print("[ERROR] Missing arguments")
         sys.exit(1)
     
     try:
@@ -44,7 +44,7 @@ def main():
         socratic_engine = SocraticEngine(assistant.memory_store)
         
         # Create mock initial response for self-questioning
-        initial_response = f"Análisis inicial del tema: {query}"
+        initial_response = f"Initial analysis of topic: {query}"
         
         # Get relevant memories
         relevant_memories = assistant.memory_store.search(query, limit=5)
@@ -61,24 +61,24 @@ def main():
         memory_id = assistant.memory_store.add(dialogue_memory)
         
         # Format response
-        response = f"""? DIÁLOGO SOCRÁTICO COMPLETADO
+        response = f"""🤔 SOCRATIC DIALOGUE COMPLETED
 ==================================================
-? Consulta: {query}
-? Profundidad: {depth}
-? Preguntas generadas: {len(dialogue.questions)}
-? Insights descubiertos: {len(dialogue.insights)}
-? Síntesis: {dialogue.final_synthesis}
+🎯 Query: {query}
+📊 Depth: {depth}
+❓ Questions generated: {len(dialogue.questions)}
+💡 Insights discovered: {len(dialogue.insights)}
+🎯 Synthesis: {dialogue.final_synthesis}
 
-? Guardado como memoria ID: {memory_id}
+💾 Saved as memory ID: {memory_id}
 
-? PROCESO COMPLETO:
+📝 COMPLETE PROCESS:
 {dialogue_memory.content}
 """
         
         print(response)
         
     except Exception as e:
-        print(f"[ERROR] Error en diálogo socrático: {str(e)}", file=sys.stderr)
+        print(f"[ERROR] Error in socratic dialogue: {str(e)}", file=sys.stderr)
         print(f"[ERROR] Error: {str(e)}")
         sys.exit(1)
 

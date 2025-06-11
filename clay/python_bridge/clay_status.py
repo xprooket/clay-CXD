@@ -23,7 +23,7 @@ try:
     from clay.memory import MemoryStore
 except ImportError as e:
     print(f"[ERROR] Error importing Clay: {e}", file=sys.stderr)
-    print("[ERROR] No se pudo importar Clay")
+    print("[ERROR] Could not import Clay")
     sys.exit(1)
 
 def init_cxd_classifier():
@@ -170,17 +170,17 @@ def main():
         status_parts.append("=" * 50)
         
         # Basic status
-        status_parts.append("ESTADO GENERAL:")
-        status_parts.append("  [OK] Clay Core: Activo")
+        status_parts.append("GENERAL STATUS:")
+        status_parts.append("  [OK] Clay Core: Active")
         status_parts.append("  [OK] MCP Bridge: JavaScript -> Python")
         status_parts.append("")
         
         # Enhanced memory statistics
-        status_parts.append("ESTADISTICAS DE MEMORIA:")
+        status_parts.append("MEMORY STATISTICS:")
         if 'error' not in memory_stats:
-            status_parts.append(f"  Total memorias: {memory_stats['total']}")
-            status_parts.append(f"  Recientes (24h): {memory_stats['recent_24h']}")
-            status_parts.append("  Por tipo:")
+            status_parts.append(f"  Total memories: {memory_stats['total']}")
+            status_parts.append(f"  Recent (24h): {memory_stats['recent_24h']}")
+            status_parts.append("  By type:")
             for mem_type, count in memory_stats['by_type'].items():
                 status_parts.append(f"    - {mem_type}: {count}")
         else:
@@ -190,7 +190,7 @@ def main():
         # REFS PATTERNS SYSTEM STATUS
         if 'refs_patterns' in memory_stats and 'error' not in memory_stats['refs_patterns']:
             refs = memory_stats['refs_patterns']
-            status_parts.append("🏷️ SISTEMA REFS PATTERNS:")
+            status_parts.append("🏷️ REFS PATTERNS SYSTEM:")
             status_parts.append(f"  Bootstrap critical: {refs['bootstrap_critical']}")
             status_parts.append(f"  Quarantined: {refs['quarantined']}")
             status_parts.append(f"  Cross-referenced: {refs['cross_referenced']}")
@@ -224,8 +224,8 @@ def main():
             if Path(db_path).exists():
                 db_size = Path(db_path).stat().st_size / 1024  # KB
                 status_parts.append("BASE DE DATOS:")
-                status_parts.append(f"  Archivo: {db_path}")
-                status_parts.append(f"  Tamaño: {db_size:.1f} KB")
+                status_parts.append(f"  File: {db_path}")
+                status_parts.append(f"  Size: {db_size:.1f} KB")
                 status_parts.append("")
         except Exception:
             pass
@@ -257,13 +257,13 @@ def main():
         status_parts.append("")
         
         # System info
-        status_parts.append("INFORMACION DEL SISTEMA:")
+        status_parts.append("SYSTEM INFORMATION:")
         status_parts.append(f"  Python: {sys.version.split()[0]}")
-        status_parts.append(f"  Directorio: {os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}")
+        status_parts.append(f"  Directory: {os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}")
         status_parts.append("")
         
         # Final status with enhanced info
-        status_parts.append("[OK] Clay esta funcionando correctamente con bridge JavaScript.")
+        status_parts.append("[OK] Clay is working correctly with JavaScript bridge.")
         
         print("\n".join(status_parts))
         

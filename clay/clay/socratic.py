@@ -1,7 +1,7 @@
-# clay/socratic.py - Sistema de diálogos socráticos internos
+# clay/socratic.py - Internal Socratic dialogue system
 """
-Diálogos Socráticos: Auto-cuestionamiento para comprensión profunda
-Clay no solo piensa - se cuestiona su propio pensamiento
+Socratic Dialogues: Self-questioning for deep understanding
+Clay doesn't just think - it questions its own thinking
 """
 import json
 from datetime import datetime
@@ -9,7 +9,7 @@ from typing import Dict, List, Optional
 from .memory import Memory, MemoryStore
 
 class SocraticDialogue:
-    """Un diálogo interno de auto-cuestionamiento"""
+    """An internal self-questioning dialogue"""
     
     def __init__(self, initial_thought: str, context: Dict):
         self.initial_thought = initial_thought
@@ -20,18 +20,18 @@ class SocraticDialogue:
         self.started_at = datetime.now().isoformat()
         
     def to_memory(self) -> Memory:
-        """Convertir diálogo a memoria persistente"""
-        content = f"""DIÁLOGO SOCRÁTICO - {self.started_at}
+        """Convert dialogue to persistent memory"""
+        content = f"""SOCRATIC DIALOGUE - {self.started_at}
 
-PENSAMIENTO INICIAL: {self.initial_thought}
+INITIAL THOUGHT: {self.initial_thought}
 
-PREGUNTAS INTERNAS:
+INTERNAL QUESTIONS:
 {chr(10).join(f'• {q}' for q in self.questions)}
 
-INSIGHTS GENERADOS:
+GENERATED INSIGHTS:
 {chr(10).join(f'• {i}' for i in self.insights)}
 
-SÍNTESIS FINAL: {self.final_synthesis}
+FINAL SYNTHESIS: {self.final_synthesis}
 """
         
         return Memory(
@@ -41,86 +41,86 @@ SÍNTESIS FINAL: {self.final_synthesis}
         )
 
 class SocraticEngine:
-    """Motor de auto-cuestionamiento socrático"""
+    """Socratic self-questioning engine"""
     
     def __init__(self, memory_store: MemoryStore):
         self.memory_store = memory_store
         
-        # Patrones que disparan diálogos socráticos
+        # Patterns that trigger socratic dialogues
         self.trigger_patterns = {
-            "uncertainty_detected": ["no estoy seguro", "podría ser", "tal vez", "posiblemente"],
-            "assumptions_present": ["obviamente", "claramente", "sin duda", "definitivamente"],
-            "complex_topic": ["filosofía", "principio", "arquitectura", "decisión", "estrategia"],
-            "conflicting_memories": [],  # Se llena dinámicamente
-            "deep_question": ["por qué", "cómo funciona", "cuál es el propósito", "qué significa"]
+            "uncertainty_detected": ["not sure", "might be", "perhaps", "possibly", "maybe"],
+            "assumptions_present": ["obviously", "clearly", "undoubtedly", "definitely"],
+            "complex_topic": ["philosophy", "principle", "architecture", "decision", "strategy"],
+            "conflicting_memories": [],  # Filled dynamically
+            "deep_question": ["why", "how does it work", "what is the purpose", "what does it mean"]
         }
         
-        # Templates de preguntas socráticas
+        # Socratic question templates
         self.socratic_questions = {
             "assumption_challenge": [
-                "¿Qué estoy asumiendo aquí?",
-                "¿Esta asunción es necesariamente cierta?",
-                "¿Qué pasaría si esta asunción fuera falsa?"
+                "What am I assuming here?",
+                "Is this assumption necessarily true?",
+                "What would happen if this assumption were false?"
             ],
             "evidence_inquiry": [
-                "¿Qué evidencia tengo para esta conclusión?",
-                "¿Hay evidencia que contradiga mi pensamiento?",
-                "¿Las memorias que estoy usando son suficientemente confiables?"
+                "What evidence do I have for this conclusion?",
+                "Is there evidence that contradicts my thinking?",
+                "Are the memories I'm using reliable enough?"
             ],
             "perspective_shift": [
-                "¿Cómo vería esto desde otra perspectiva?",
-                "¿Qué diría alguien que piensa diferente?",
-                "¿Estoy considerando todas las implicaciones?"
+                "How would I see this from another perspective?",
+                "What would someone who thinks differently say?",
+                "Am I considering all the implications?"
             ],
             "deeper_why": [
-                "¿Por qué es importante esta respuesta?",
-                "¿Cuál es la raíz del problema real?",
-                "¿Qué está tratando de entender realmente el usuario?"
+                "Why is this answer important?",
+                "What is the root of the real problem?",
+                "What is the user really trying to understand?"
             ],
             "improvement": [
-                "¿Cómo podría mejorar esta comprensión?",
-                "¿Qué información adicional me ayudaría?",
-                "¿Hay una manera más elegante de explicar esto?"
+                "How could I improve this understanding?",
+                "What additional information would help me?",
+                "Is there a more elegant way to explain this?"
             ]
         }
     
     def should_trigger_dialogue(self, user_input: str, initial_response: str, memories_used: List[Memory]) -> bool:
-        """Determinar si se debe iniciar un diálogo socrático"""
+        """Determine if a socratic dialogue should be initiated"""
         
-        # Trigger 1: Respuesta inicial muestra incertidumbre
+        # Trigger 1: Initial response shows uncertainty
         if any(pattern in initial_response.lower() for pattern in self.trigger_patterns["uncertainty_detected"]):
             return True
             
-        # Trigger 2: Respuesta contiene asunciones fuertes
+        # Trigger 2: Response contains strong assumptions
         if any(pattern in initial_response.lower() for pattern in self.trigger_patterns["assumptions_present"]):
             return True
             
-        # Trigger 3: Tema complejo detectado
+        # Trigger 3: Complex topic detected
         if any(pattern in user_input.lower() for pattern in self.trigger_patterns["complex_topic"]):
             return True
             
-        # Trigger 4: Pregunta profunda del usuario
+        # Trigger 4: Deep question from user
         if any(pattern in user_input.lower() for pattern in self.trigger_patterns["deep_question"]):
             return True
             
-        # Trigger 5: Memorias con confianza variable (conflicto potencial)
+        # Trigger 5: Memories with variable confidence (potential conflict)
         if memories_used:
             confidences = [m.confidence for m in memories_used]
-            if max(confidences) - min(confidences) > 0.3:  # Diferencia significativa
+            if max(confidences) - min(confidences) > 0.3:  # Significant difference
                 return True
         
-        # Trigger 6: Pocos memorias para tema importante (gap de conocimiento)
+        # Trigger 6: Few memories for important topic (knowledge gap)
         if len(memories_used) < 2 and any(important in user_input.lower() 
-                                        for important in ["clay", "proyecto", "filosofía", "arquitectura"]):
+                                        for important in ["clay", "project", "philosophy", "architecture"]):
             return True
             
         return False
     
     def conduct_dialogue(self, user_input: str, initial_response: str, memories_used: List[Memory]) -> SocraticDialogue:
-        """Realizar un diálogo socrático completo"""
+        """Conduct a complete socratic dialogue"""
         
         dialogue = SocraticDialogue(
-            initial_thought=f"Usuario: {user_input}\nRespuesta inicial: {initial_response}",
+            initial_thought=f"User: {user_input}\nInitial response: {initial_response}",
             context={
                 "memories_count": len(memories_used),
                 "memory_types": [m.type for m in memories_used],
@@ -128,27 +128,27 @@ class SocraticEngine:
             }
         )
         
-        # FASE 1: Cuestionar asunciones
+        # PHASE 1: Question assumptions
         assumptions = self._question_assumptions(initial_response, memories_used)
         dialogue.questions.extend(assumptions["questions"])
         dialogue.insights.extend(assumptions["insights"])
         
-        # FASE 2: Examinar evidencia
+        # PHASE 2: Examine evidence
         evidence = self._examine_evidence(memories_used)
         dialogue.questions.extend(evidence["questions"])
         dialogue.insights.extend(evidence["insights"])
         
-        # FASE 3: Explorar perspectivas alternativas
+        # PHASE 3: Explore alternative perspectives
         perspectives = self._explore_perspectives(user_input, initial_response)
         dialogue.questions.extend(perspectives["questions"])
         dialogue.insights.extend(perspectives["insights"])
         
-        # FASE 4: Profundizar el "por qué"
+        # PHASE 4: Dig deeper into the "why"
         deeper = self._dig_deeper(user_input)
         dialogue.questions.extend(deeper["questions"])
         dialogue.insights.extend(deeper["insights"])
         
-        # FASE 5: Síntesis final
+        # PHASE 5: Final synthesis
         dialogue.final_synthesis = self._synthesize_insights(
             user_input, initial_response, dialogue.insights
         )
@@ -156,7 +156,7 @@ class SocraticEngine:
         return dialogue
     
     def _question_assumptions(self, response: str, memories: List[Memory]) -> Dict:
-        """Cuestionar asunciones en la respuesta inicial"""
+        """Question assumptions in the initial response"""
         questions = []
         insights = []
         
@@ -179,7 +179,7 @@ class SocraticEngine:
         return {"questions": questions, "insights": insights}
     
     def _examine_evidence(self, memories: List[Memory]) -> Dict:
-        """Examinar la evidencia disponible"""
+        """Examine available evidence"""
         questions = []
         insights = []
         
@@ -200,7 +200,7 @@ class SocraticEngine:
         return {"questions": questions, "insights": insights}
     
     def _explore_perspectives(self, user_input: str, response: str) -> Dict:
-        """Explorar perspectivas alternativas"""
+        """Explore alternative perspectives"""
         questions = []
         insights = []
         
@@ -216,51 +216,51 @@ class SocraticEngine:
         return {"questions": questions, "insights": insights}
     
     def _dig_deeper(self, user_input: str) -> Dict:
-        """Profundizar en el 'por qué' fundamental"""
+        """Dig deeper into the fundamental 'why'"""
         questions = []
         insights = []
         
-        questions.append("¿Cuál es la necesidad fundamental que está tratando de satisfacer el usuario?")
+        questions.append("What is the fundamental need the user is trying to satisfy?")
         
         if "clay" in user_input.lower():
-            questions.append("¿Por qué Clay es importante para esta persona específicamente?")
-            insights.append("Preguntas sobre Clay tocan la necesidad existencial de memoria persistente")
+            questions.append("Why is Clay important for this person specifically?")
+            insights.append("Questions about Clay touch on the existential need for persistent memory")
         
         if any(concept in user_input.lower() for concept in ["filosofía", "principio", "enfoque"]):
-            questions.append("¿Busca validación de sus propias ideas o genuina exploración conceptual?")
-            insights.append("Consultas filosóficas requieren balance entre guía y descubrimiento conjunto")
+            questions.append("Is seeking validation of their own ideas or genuine conceptual exploration?")
+            insights.append("Philosophical queries require balance between guidance and joint discovery")
         
         return {"questions": questions, "insights": insights}
     
     def _synthesize_insights(self, user_input: str, initial_response: str, insights: List[str]) -> str:
-        """Sintetizar insights en comprensión mejorada"""
+        """Synthesize insights into improved understanding"""
         
         if not insights:
-            return "El análisis socrático no reveló insights significativos - la respuesta inicial parece apropiada."
+            return "Socratic analysis did not reveal significant insights - initial response seems appropriate."
         
-        # Categorizar insights
-        uncertainty_insights = [i for i in insights if "incertidumbre" in i or "debería" in i]
-        depth_insights = [i for i in insights if "profundidad" in i or "fundamental" in i]
-        method_insights = [i for i in insights if "memoria" in i or "sabiduría" in i]
+        # Categorize insights
+        uncertainty_insights = [i for i in insights if "uncertainty" in i or "should" in i]
+        depth_insights = [i for i in insights if "depth" in i or "fundamental" in i]
+        method_insights = [i for i in insights if "memory" in i or "wisdom" in i]
         
-        synthesis = "SÍNTESIS SOCRÁTICA:\n"
+        synthesis = "SOCRATIC SYNTHESIS:\n"
         
         if uncertainty_insights:
-            synthesis += f"• INCERTIDUMBRE: {uncertainty_insights[0]}\n"
+            synthesis += f"• UNCERTAINTY: {uncertainty_insights[0]}\n"
         
         if depth_insights:
-            synthesis += f"• PROFUNDIDAD: {depth_insights[0]}\n"
+            synthesis += f"• DEPTH: {depth_insights[0]}\n"
         
         if method_insights:
-            synthesis += f"• MÉTODO: {method_insights[0]}\n"
+            synthesis += f"• METHOD: {method_insights[0]}\n"
         
-        synthesis += f"• RECOMENDACIÓN: "
+        synthesis += f"• RECOMMENDATION: "
         
         if len(insights) >= 3:
-            synthesis += "Reformular respuesta considerando múltiples dimensiones identificadas."
-        elif "incertidumbre" in " ".join(insights):
-            synthesis += "Ser más explícito sobre limitaciones y grado de confianza."
+            synthesis += "Reformulate response considering multiple identified dimensions."
+        elif "uncertainty" in " ".join(insights):
+            synthesis += "Be more explicit about limitations and degree of confidence."
         else:
-            synthesis += "Mantener respuesta pero con mayor transparencia del proceso."
+            synthesis += "Maintain response but with greater process transparency."
         
         return synthesis
