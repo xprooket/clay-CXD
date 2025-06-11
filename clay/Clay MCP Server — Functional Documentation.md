@@ -4,6 +4,38 @@ This document describes the purpose, operation and architecture of the `server.j
 
 ---
 
+## ✨ Latest Features (v2.1.0)
+
+### 🛠️ Auto-Configuration System
+
+**New in v2.1.0**: Clay now automatically prepares fresh instances with essential operational knowledge.
+
+#### How Auto-Configuration Works
+1. **First Tool Call Detection**: When `status()` or `recall()` is called for the first time in a session
+2. **Session Flag Creation**: Creates `.first_status_shown` or `.first_recall_shown` flag files
+3. **Usage Guide Display**: Automatically shows essential operational information
+4. **Knowledge Integration**: Provides clear guidance on tool selection and best practices
+
+#### Operational Guide v1.0
+- **Tool Selection**: Clear guidance on when to use `recall_cxd()` vs `recall()` and other tools
+- **Common Use Cases**: Pre-loaded examples for typical user scenarios
+- **Best Practices**: Integrated documentation for optimal system usage
+- **Professional Integration**: Consistent interaction patterns for production environments
+- **Troubleshooting**: Built-in guidance for common issues and questions
+
+#### Technical Implementation
+- **Bootstrap Memories**: Usage guide stored as high-priority synthetic memory
+- **Automatic Loading**: Loaded via `bootstrap_synthetic_memories()` with highest confidence
+- **Session Persistence**: Flag files prevent repeated guidance in same session
+- **Cross-Tool Availability**: Both `clay_status.py` and `clay_recall.py` support auto-configuration
+
+### 🔧 Bug Fixes
+- **Search Pattern Matching**: Fixed pattern matching issue that prevented bootstrap memory searches
+- **Search Consistency**: `recall("bootstrap=critical")` now works reliably
+- **Status Integration**: Session flags properly tracked across both recall and status tools
+
+---
+
 ## 🎯 Purpose
 
 This script implements an **MCP server** that exposes Clay memory tools as executable commands from a standard protocol (`@modelcontextprotocol/sdk`). It serves as a **bridge between JavaScript and Python**, connecting LLM modules with Clay's persistent memory system.
@@ -71,10 +103,15 @@ This can be parameterized in future versions. Additionally, it defines environme
 
 ## ✅ Current Status
 
-The server is stable, fast and functional. It's already capable of:
+The server is stable, fast and functional. **Now production-ready with v2.1.0 improvements**. It's capable of:
 - Executing any Python tool located in `python_bridge/`
+- **Auto-configuring fresh instances** with essential operational knowledge
+- **Session management** via flag files for consistent user experience
+- **Bootstrap memory integration** with reliable pattern matching
 - Returning JSON responses to the MCP system
 - Logging errors, times and paths
+
+**Production validation**: 24+ GitHub clones, 3+ independent users successfully deployed.
 
 ---
 

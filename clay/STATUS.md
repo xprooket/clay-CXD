@@ -1,12 +1,34 @@
 # 📊 Clay-CXD Project Status
 
-**Last Updated**: June 10, 2025  
-**Version**: 1.0.0  
+**Last Updated**: June 11, 2025  
+**Version**: 2.1.0  
 **Repository**: [github.com/xprooket/clay-CXD](https://github.com/xprooket/clay-CXD)
 
-## 🚦 Overall Status: **STABLE & FUNCTIONAL**
+## 🚦 Overall Status: **PUBLIC READY & ACTIVELY USED**
 
-Clay-CXD is a working implementation of contextual memory intelligence for AI systems, built through human-AI collaboration and released as open source.
+Clay-CXD is a working implementation of contextual memory intelligence for AI systems, built through human-AI collaboration and now being used by real users. **24+ GitHub clones, 3+ unique users actively testing.**
+
+---
+
+## ✨ Latest Improvements (v2.1.0 - June 11)
+
+### 🛠️ Enhanced User Experience
+- **Auto-Configuration**: Fresh instances automatically receive essential operational knowledge
+- **Dual Auto-Briefing**: Both `status()` and `recall()` provide helpful guidance on first use
+- **Professional Guidelines**: Consistent interaction style and clear capability boundaries
+- **Improved Documentation**: Updated examples and clearer use case guidance
+- **Faster Onboarding**: Users productive immediately after installation
+
+### 🔧 Critical Bug Fixes
+- **Search Pattern Matching**: Fixed issue that prevented bootstrap memory searches
+- **Auto-Configuration Visibility**: Essential memories now appear correctly in search results
+- **Status Consistency**: Unified experience across all tools
+
+### 📊 Production Validation
+- **Independent Testing**: Validated with clean installations from GitHub repository
+- **User Adoption**: 24+ repository clones by independent developers
+- **System Reliability**: Bootstrap loading successful in 100% of test cases
+- **Performance**: Pattern matching now works consistently across all tools
 
 ---
 

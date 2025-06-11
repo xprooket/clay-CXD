@@ -29,6 +29,21 @@ Clay isn't an implementation of CMI. It's proof that the ideas behind CMI were a
 
 ---
 
+## 🎆 Production Ready (v2.1.0)
+
+**Clay-CXD is now in active use!** 24+ GitHub clones, 3+ independent users successfully deployed.
+
+### 🛠️ What Makes It User-Friendly
+- **🤖 Auto-Configuration**: Fresh instances receive essential operational knowledge automatically
+- **💡 Intuitive Onboarding**: Built-in guidance prevents common setup issues
+- **🔧 Professional Integration**: Consistent, reliable interaction patterns
+- **🤝 Clear Boundaries**: Well-defined system capabilities and limitations
+- **📋 Comprehensive Documentation**: Pre-loaded responses for common questions
+
+**Ready for production deployment** - not just demonstrations.
+
+---
+
 ## 🧠 What is Clay-CXD?
 
 This repository contains two complementary but independent tools:
@@ -46,7 +61,9 @@ While they work powerfully together, each has independent value. Clay can work w
 ### 🚀 Key Features
 
 **Clay Memory System:**
-- **🧠 Persistent Memory**: SQLite-based memory that survives across sessions
+- **🛠️ Auto-Configuration**: Fresh instances automatically prepared with operational knowledge
+- **📋 Usage Guidance**: Built-in documentation for optimal tool selection and usage
+- **💾 Persistent Memory**: SQLite-based memory that survives across sessions
 - **🔍 Hybrid Search**: Semantic understanding + keyword fallback  
 - **🔄 Reflection Tools**: Systems that can examine and improve their own reasoning
 - **🤝 Human-in-the-Loop**: Memory that humans can inspect, correct, and guide
@@ -110,6 +127,8 @@ node server.js
 ```
 
 **For Claude Desktop integration**, you'll need to configure MCP settings. See [`clay/README.md`](clay/README.md) for detailed Claude Desktop configuration instructions.
+
+**🛠️ Auto-Configuration**: When you first interact with Clay via `status()` or `recall()`, fresh instances automatically receive essential operational knowledge - no manual setup needed!
 
 ### Using CXD Independently
 

@@ -26,6 +26,80 @@ except ImportError as e:
     print("[ERROR] Could not import Clay")
     sys.exit(1)
 
+def check_first_status_session():
+    """Check if this is first status call in session and return bootstrap hint."""
+    try:
+        project_root = Path(__file__).parent.parent
+        flag_file = project_root / ".first_status_shown"
+        
+        # Check if flag exists and is recent (same session/day)
+        if flag_file.exists():
+            import datetime
+            flag_time = datetime.datetime.fromtimestamp(flag_file.stat().st_mtime)
+            now = datetime.datetime.now()
+            
+            # If flag is from today, first status already happened
+            if flag_time.date() == now.date():
+                return False
+        
+        # Create/update flag file - this IS first status
+        flag_file.touch()
+        return True
+        
+    except Exception as e:
+        print(f"[DEBUG] First status check failed: {e}", file=sys.stderr)
+        return False  # Default to not showing if unsure
+
+def show_first_status_bootstrap(assistant):
+    """Show first-status bootstrap with essential startup memories."""
+    try:
+        # Get bootstrap memories count
+        cursor = assistant.memory_store.conn.execute(
+            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
+            ("%refs: %bootstrap=critical%",)
+        )
+        bootstrap_count = cursor.fetchone()[0]
+        
+        if bootstrap_count == 0:
+            return "ℹ️ No bootstrap memories configured yet."
+        
+        # Get bootstrap memories
+        cursor = assistant.memory_store.conn.execute(
+            "SELECT * FROM memories WHERE content LIKE ? ORDER BY created_at DESC LIMIT 5",
+            ("%refs: %bootstrap=critical%",)
+        )
+        
+        rows = cursor.fetchall()
+        if not rows:
+            return "ℹ️ No bootstrap memories found."
+        
+        # Format bootstrap display
+        lines = []
+        lines.append("🚀 CLAY AUTO-BRIEFING - BOOTSTRAP CRITICAL MEMORIES LOADED")
+        lines.append(f"📋 Found {len(rows)} essential startup memories:")
+        lines.append("")
+        
+        for i, row in enumerate(rows, 1):
+            memory = assistant.memory_store._row_to_memory(row)
+            # Show just first line of content for overview
+            first_line = memory.content.split('\n')[0].strip()
+            if len(first_line) > 80:
+                first_line = first_line[:77] + "..."
+            lines.append(f"  🛡️ [ID: {row['id']}] {first_line}")
+        
+        lines.append("")
+        lines.append("💡 THESE MEMORIES ARE NOW ACTIVE - You should adopt these principles as your behavior")
+        lines.append("🔧 Use recall('bootstrap=critical') to see full details anytime")
+        lines.append("")
+        lines.append("=" * 70)
+        lines.append("")
+        
+        return "\n".join(lines)
+        
+    except Exception as e:
+        print(f"[DEBUG] Bootstrap display failed: {e}", file=sys.stderr)
+        return "ℹ️ Bootstrap display failed."
+
 def init_cxd_classifier():
     """Try to initialize CXD classifier"""
     try:
@@ -82,35 +156,35 @@ def get_refs_patterns_stats(assistant):
         # Bootstrap critical memories
         cursor = assistant.memory_store.conn.execute(
             "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs:%bootstrap=critical%",)
+            ("%refs: %bootstrap=critical%",)
         )
         stats['bootstrap_critical'] = cursor.fetchone()[0]
         
         # Quarantined memories (only those that are ONLY quarantined, not also bootstrap)
         cursor = assistant.memory_store.conn.execute(
             "SELECT COUNT(*) FROM memories WHERE content LIKE ? AND content NOT LIKE ?",
-            ("%refs:%quarantine=true%", "%refs:%bootstrap=critical%")
+            ("%refs: %quarantine=true%", "%refs: %bootstrap=critical%")
         )
         stats['quarantined'] = cursor.fetchone()[0]
         
         # Memories with relates_to references
         cursor = assistant.memory_store.conn.execute(
             "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs:%relates_to=%",)
+            ("%refs: %relates_to=%",)
         )
         stats['cross_referenced'] = cursor.fetchone()[0]
         
         # Memories with check commands (auto-quarantine ready)
         cursor = assistant.memory_store.conn.execute(
             "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs:%check=%",)
+            ("%refs: %check=%",)
         )
         stats['auto_quarantine_ready'] = cursor.fetchone()[0]
         
         # Memories with context tags
         cursor = assistant.memory_store.conn.execute(
             "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs:%context=%",)
+            ("%refs: %context=%",)
         )
         stats['contextualized'] = cursor.fetchone()[0]
         
@@ -144,6 +218,15 @@ def get_session_flags_status():
         else:
             flags_status['golden_briefing_shown'] = "Never"
         
+        # First status flag
+        first_status_flag = project_root / ".first_status_shown"
+        if first_status_flag.exists():
+            import datetime
+            flag_time = datetime.datetime.fromtimestamp(first_status_flag.stat().st_mtime)
+            flags_status['first_status_shown'] = flag_time.strftime("%Y-%m-%d %H:%M")
+        else:
+            flags_status['first_status_shown'] = "Never"
+        
         return flags_status
         
     except Exception as e:
@@ -153,6 +236,12 @@ def main():
     try:
         # Initialize assistant
         assistant = ContextualAssistant("claude_mcp_enhanced")
+        
+        # === AUTO-BRIEFING CHECK ===
+        if check_first_status_session():
+            bootstrap_display = show_first_status_bootstrap(assistant)
+            print(bootstrap_display)
+            # Continue with regular status after auto-briefing
         
         # Get enhanced memory stats
         memory_stats = get_memory_stats(assistant)
@@ -215,6 +304,7 @@ def main():
         if 'error' not in session_flags:
             status_parts.append("🚩 SESSION FLAGS:")
             status_parts.append(f"  First recall bootstrap: {session_flags['first_recall_shown']}")
+            status_parts.append(f"  First status bootstrap: {session_flags['first_status_shown']}")
             status_parts.append(f"  Golden briefing: {session_flags['golden_briefing_shown']}")
             status_parts.append("")
         
