@@ -352,7 +352,7 @@ def get_memory_store(db_name: Optional[str] = None):
             db_file = db_name
         else:
             # Smart default selection
-            db_file = "claude_mcp_enhanced_memories.db"
+            db_file = "claude_mcp_memories.db"
         
         db_path = project_root / db_file
         

@@ -247,7 +247,7 @@ def get_session_flags_status():
 def main():
     try:
         # Initialize assistant
-        assistant = ContextualAssistant("claude_mcp_enhanced")
+        assistant = ContextualAssistant("claude_mcp")
         
         # === AUTO-BRIEFING CHECK ===
         if check_first_status_session():

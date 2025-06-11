@@ -83,7 +83,7 @@ def main():
         cxd_status = "[CXD] CXD v2.0 activo" if cxd_classifier else "[WARNING] sin CXD"
         
         # Initialize assistant (use same name as original server)
-        assistant = ContextualAssistant("claude_mcp_enhanced")
+        assistant = ContextualAssistant("claude_mcp")
         
         # Classify content with CXD (if available)
         cxd_metadata = classify_content_with_cxd(cxd_classifier, content)

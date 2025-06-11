@@ -380,8 +380,8 @@ def main():
                 limit = int(sys.argv[i])
                 i += 1
         
-        # Initialize assistant (uses claude_mcp_enhanced_memories.db)
-        assistant = ContextualAssistant("claude_mcp_enhanced")
+        # Initialize assistant (uses claude_mcp_memories.db)
+        assistant = ContextualAssistant("claude_mcp")
         print(f"[DEBUG] Using memory DB: {assistant.db_path}", file=sys.stderr)
         
         # === HELP SYSTEM ===

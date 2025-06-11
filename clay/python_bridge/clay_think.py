@@ -34,7 +34,7 @@ def main():
         input_text = sys.argv[1]
 
         # Initialize assistant
-        assistant = ContextualAssistant("claude_mcp_enhanced")
+        assistant = ContextualAssistant("claude_mcp")
 
         # Process with memory
         result = assistant.think(input_text)
