@@ -101,22 +101,34 @@ def show_first_status_bootstrap(assistant):
         return "ℹ️ Bootstrap display failed."
 
 def init_cxd_classifier():
-    """Try to initialize CXD classifier"""
+    """Try to initialize CXD classifier with graceful fallback"""
     try:
-        # Add CXD path if needed
-        cxd_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "core")
-        if cxd_path not in sys.path:
-            sys.path.insert(0, cxd_path)
-        
-        from cxd_optimized_architecture import OptimizedMetaCXDClassifier
-        
-        cache_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "clay_cxd_cache")
-        classifier = OptimizedMetaCXDClassifier(
-            cache_dir=cache_dir,
-            rebuild_cache=False
-        )
+        # First try: Use installed package (recommended)
+        from cxd_classifier import create_classifier
+        classifier = create_classifier("optimized")
         return classifier
-    except Exception:
+        
+    except ImportError:
+        # Second try: Add repository path and import
+        try:
+            clay_cxd_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            cxd_path = os.path.join(clay_cxd_root, "cxd-classifier", "src")
+            
+            if os.path.exists(cxd_path) and cxd_path not in sys.path:
+                sys.path.insert(0, cxd_path)
+                from cxd_classifier import create_classifier
+                classifier = create_classifier("optimized")
+                return classifier
+            else:
+                print(f"[DEBUG] CXD path not found: {cxd_path}", file=sys.stderr)
+                return None
+                
+        except Exception as path_error:
+            print(f"[DEBUG] CXD path import failed: {path_error}", file=sys.stderr)
+            return None
+            
+    except Exception as e:
+        print(f"[DEBUG] CXD initialization failed: {e}", file=sys.stderr)
         return None
 
 def get_memory_stats(assistant):
