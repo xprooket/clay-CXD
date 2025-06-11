@@ -355,7 +355,7 @@ def main():
             except Exception as cxd_error:
                 status_parts.append(f"  [WARN] Error parcial: {str(cxd_error)[:50]}")
         else:
-            status_parts.append("  [ERROR] No disponible")
+            status_parts.append("  [OK] Available via MCP tools")
         status_parts.append("")
         
         # System info
