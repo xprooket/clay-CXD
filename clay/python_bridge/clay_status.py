@@ -55,8 +55,8 @@ def show_first_status_bootstrap(assistant):
     try:
         # Get bootstrap memories count
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %bootstrap=critical%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         bootstrap_count = cursor.fetchone()[0]
         
@@ -65,8 +65,8 @@ def show_first_status_bootstrap(assistant):
         
         # Get bootstrap memories
         cursor = assistant.memory_store.conn.execute(
-            "SELECT * FROM memories WHERE content LIKE ? ORDER BY created_at DESC LIMIT 5",
-            ("%refs: %bootstrap=critical%",)
+            "SELECT * FROM memories WHERE (content LIKE ? OR content LIKE ?) ORDER BY created_at DESC LIMIT 5",
+            ("%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         
         rows = cursor.fetchall()
@@ -167,36 +167,36 @@ def get_refs_patterns_stats(assistant):
         
         # Bootstrap critical memories
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %bootstrap=critical%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         stats['bootstrap_critical'] = cursor.fetchone()[0]
         
         # Quarantined memories (only those that are ONLY quarantined, not also bootstrap)
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ? AND content NOT LIKE ?",
-            ("%refs: %quarantine=true%", "%refs: %bootstrap=critical%")
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?) AND content NOT LIKE ? AND content NOT LIKE ?",
+            ("%refs:%quarantine=true%", "%refs: %quarantine=true%", "%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         stats['quarantined'] = cursor.fetchone()[0]
         
         # Memories with relates_to references
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %relates_to=%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%relates_to=%", "%refs: %relates_to=%")
         )
         stats['cross_referenced'] = cursor.fetchone()[0]
         
         # Memories with check commands (auto-quarantine ready)
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %check=%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%check=%", "%refs: %check=%")
         )
         stats['auto_quarantine_ready'] = cursor.fetchone()[0]
         
         # Memories with context tags
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %context=%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%context=%", "%refs: %context=%")
         )
         stats['contextualized'] = cursor.fetchone()[0]
         

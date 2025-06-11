@@ -62,8 +62,8 @@ def get_bootstrap_count(assistant):
     """Get count of available bootstrap=critical memories."""
     try:
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ?",
-            ("%refs: %bootstrap=critical%",)
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?)",
+            ("%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         count = cursor.fetchone()[0]
         return count
@@ -81,8 +81,8 @@ def show_first_recall_bootstrap(assistant):
         
         # Get bootstrap memories
         cursor = assistant.memory_store.conn.execute(
-            "SELECT * FROM memories WHERE content LIKE ? ORDER BY created_at DESC LIMIT 5",
-            ("%refs: %bootstrap=critical%",)
+            "SELECT * FROM memories WHERE (content LIKE ? OR content LIKE ?) ORDER BY created_at DESC LIMIT 5",
+            ("%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         
         rows = cursor.fetchall()
@@ -136,8 +136,8 @@ def show_help_manual(assistant):
     quarantine_count = 0
     try:
         cursor = assistant.memory_store.conn.execute(
-            "SELECT COUNT(*) FROM memories WHERE content LIKE ? AND content NOT LIKE ?",
-            ("%refs: %quarantine=true%", "%refs: %bootstrap=critical%")
+            "SELECT COUNT(*) FROM memories WHERE (content LIKE ? OR content LIKE ?) AND content NOT LIKE ? AND content NOT LIKE ?",
+            ("%refs:%quarantine=true%", "%refs: %quarantine=true%", "%refs:%bootstrap=critical%", "%refs: %bootstrap=critical%")
         )
         quarantine_count = cursor.fetchone()[0]
     except Exception:
@@ -256,13 +256,13 @@ def search_refs_pattern(assistant, pattern, limit, filter_type=None):
         # Standard refs pattern search
         if filter_type:
             cursor = assistant.memory_store.conn.execute(
-                "SELECT * FROM memories WHERE type = ? AND content LIKE ? ORDER BY created_at DESC LIMIT ?",
-                (filter_type, f"%refs: %{pattern}%", limit)
+                "SELECT * FROM memories WHERE type = ? AND (content LIKE ? OR content LIKE ?) ORDER BY created_at DESC LIMIT ?",
+                (filter_type, f"%refs:%{pattern}%", f"%refs: %{pattern}%", limit)
             )
         else:
             cursor = assistant.memory_store.conn.execute(
-                "SELECT * FROM memories WHERE content LIKE ? ORDER BY created_at DESC LIMIT ?",
-                (f"%refs: %{pattern}%", limit)
+                "SELECT * FROM memories WHERE (content LIKE ? OR content LIKE ?) ORDER BY created_at DESC LIMIT ?",
+                (f"%refs:%{pattern}%", f"%refs: %{pattern}%", limit)
             )
     
     rows = cursor.fetchall()
