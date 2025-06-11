@@ -18,9 +18,11 @@ if sys.platform.startswith('win'):
 # Add Clay to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Add new CXD classifier path
-cxd_path = r"D:\claude\cxd-classifier\src"
-sys.path.insert(0, cxd_path)
+# Add CXD classifier path - use relative path within project
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+cxd_path = os.path.join(os.path.dirname(project_root), "cxd-classifier", "src")
+if os.path.exists(cxd_path):
+    sys.path.insert(0, cxd_path)
 
 def init_cxd_classifier():
     """Initialize CXD classifier v2.0"""

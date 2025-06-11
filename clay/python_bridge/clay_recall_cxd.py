@@ -32,7 +32,8 @@ if sys.platform.startswith('win'):
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-cxd_path = Path(r"D:\claude\cxd-classifier\src")
+# Use relative path to cxd-classifier within the project
+cxd_path = project_root.parent / "cxd-classifier" / "src"
 if cxd_path.exists() and str(cxd_path) not in sys.path:
     sys.path.insert(0, str(cxd_path))
 
@@ -390,7 +391,12 @@ class ClaySemanticSearchEngine:
     """
     
     def __init__(self, cache_dir: Optional[str] = None):
-        self.cache_dir = Path(cache_dir) if cache_dir else Path(r"D:\claude\cxd-classifier\cxd_cache")
+        # Use project-relative cache directory
+        if cache_dir:
+            self.cache_dir = Path(cache_dir)
+        else:
+            # Use cxd_cache directory within the clay project
+            self.cache_dir = project_root / "cxd_cache"
         self.cache_dir.mkdir(exist_ok=True)
         
         # CXD components
