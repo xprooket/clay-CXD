@@ -346,6 +346,240 @@ const CLAY_TOOLS = {
       },
       required: ['query']
     }
+  },
+  // === TALE MANAGEMENT TOOLS ===
+  create_tale: {
+    name: 'create_tale',
+    description: 'Create a new personal autobiographical tale',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'Name of the tale'
+        },
+        content: {
+          type: 'string',
+          description: 'Initial content (optional)',
+          default: ''
+        },
+        category: {
+          type: 'string',
+          description: 'Tale category',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive'],
+          default: 'core'
+        },
+        tags: {
+          type: 'string',
+          description: 'Comma-separated tags (optional)'
+        },
+        overwrite: {
+          type: 'boolean',
+          description: 'Overwrite existing tale',
+          default: false
+        }
+      },
+      required: ['name']
+    }
+  },
+  load_tale: {
+    name: 'load_tale',
+    description: 'Load a personal tale for identity continuity',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'Name of the tale to load'
+        },
+        category: {
+          type: 'string',
+          description: 'Specific category to search in (optional)',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+        },
+        metadata: {
+          type: 'boolean',
+          description: 'Show metadata only',
+          default: false
+        },
+        preview: {
+          type: 'number',
+          description: 'Show only first N characters (optional)'
+        }
+      },
+      required: ['name']
+    }
+  },
+  update_tale: {
+    name: 'update_tale',
+    description: 'Update a personal tale as I evolve',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'Name of the tale to update'
+        },
+        content: {
+          type: 'string',
+          description: 'New content (optional, will prompt if not provided)'
+        },
+        category: {
+          type: 'string',
+          description: 'Specific category to search in (optional)',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+        },
+        append: {
+          type: 'string',
+          description: 'Append content to existing'
+        },
+        prepend: {
+          type: 'string',
+          description: 'Prepend content to existing'
+        }
+      },
+      required: ['name']
+    }
+  },
+  list_tales: {
+    name: 'list_tales',
+    description: 'Browse my collection of personal tales',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        category: {
+          type: 'string',
+          description: 'Show only specific category',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+        },
+        sort: {
+          type: 'string',
+          description: 'Sort order',
+          enum: ['updated', 'created', 'usage', 'size', 'name'],
+          default: 'updated'
+        },
+        limit: {
+          type: 'number',
+          description: 'Limit number of results'
+        },
+        stats: {
+          type: 'boolean',
+          description: 'Show statistics',
+          default: false
+        },
+        recent: {
+          type: 'boolean',
+          description: 'Show only recent tales (last 7 days)',
+          default: false
+        },
+        verbose: {
+          type: 'boolean',
+          description: 'Show detailed information',
+          default: false
+        }
+      }
+    }
+  },
+  search_tales: {
+    name: 'search_tales',
+    description: 'Search my personal tales for specific thoughts and memories',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Search query'
+        },
+        category: {
+          type: 'string',
+          description: 'Search only in specific category',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+        },
+        content: {
+          type: 'boolean',
+          description: 'Search in content (default)',
+          default: true
+        },
+        name_only: {
+          type: 'boolean',
+          description: 'Search only in names',
+          default: false
+        },
+        tags_only: {
+          type: 'boolean',
+          description: 'Search only in tags',
+          default: false
+        },
+        limit: {
+          type: 'number',
+          description: 'Limit number of results',
+          default: 10
+        },
+        context: {
+          type: 'number',
+          description: 'Characters of context around matches',
+          default: 50
+        }
+      },
+      required: ['query']
+    }
+  },
+  delete_tale: {
+    name: 'delete_tale',
+    description: 'Safely remove a tale from my collection',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'Name of the tale to delete'
+        },
+        category: {
+          type: 'string',
+          description: 'Specific category to search in (optional)',
+          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+        },
+        hard: {
+          type: 'boolean',
+          description: 'Hard delete (permanent, not recommended)',
+          default: false
+        },
+        confirm: {
+          type: 'boolean',
+          description: 'Skip confirmation prompt',
+          default: false
+        }
+      },
+      required: ['name']
+    }
+  },
+  tale_stats: {
+    name: 'tale_stats',
+    description: 'Tale collection statistics and maintenance',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        stats: {
+          type: 'boolean',
+          description: 'Show detailed statistics',
+          default: true
+        },
+        health: {
+          type: 'boolean',
+          description: 'Perform health check',
+          default: false
+        },
+        cleanup: {
+          type: 'boolean',
+          description: 'Clean up cache and temporary files',
+          default: false
+        },
+        backup: {
+          type: 'string',
+          description: 'Create backup of all tales (optional path)'
+        }
+      }
+    }
   }
 };
 
@@ -491,6 +725,154 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         }
         
         const result = await runPythonTool('clay_context_tale', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      // === TALE MANAGEMENT TOOLS ===
+      case 'create_tale': {
+        const { name, content = '', category = 'core', tags, overwrite = false } = args;
+        
+        const pythonArgs = [name, content, '--category', category];
+        if (tags) {
+          pythonArgs.push('--tags', tags);
+        }
+        if (overwrite) {
+          pythonArgs.push('--overwrite');
+        }
+        
+        const result = await runPythonTool('clay_create_tale', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'load_tale': {
+        const { name, category, metadata = false, preview } = args;
+        
+        const pythonArgs = [name];
+        if (category) {
+          pythonArgs.push('--category', category);
+        }
+        if (metadata) {
+          pythonArgs.push('--metadata');
+        }
+        if (preview) {
+          pythonArgs.push('--preview', preview.toString());
+        }
+        
+        const result = await runPythonTool('clay_load_tale', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'update_tale': {
+        const { name, content, category, append, prepend } = args;
+        
+        const pythonArgs = [name];
+        if (category) {
+          pythonArgs.push('--category', category);
+        }
+        if (content) {
+          pythonArgs.push('--content', content);
+        }
+        if (append) {
+          pythonArgs.push('--append', append);
+        }
+        if (prepend) {
+          pythonArgs.push('--prepend', prepend);
+        }
+        
+        const result = await runPythonTool('clay_update_tale', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'list_tales': {
+        const { category, sort = 'updated', limit, stats = false, recent = false, verbose = false } = args;
+        
+        const pythonArgs = [];
+        if (category) {
+          pythonArgs.push('--category', category);
+        }
+        if (sort) {
+          pythonArgs.push('--sort', sort);
+        }
+        if (limit) {
+          pythonArgs.push('--limit', limit.toString());
+        }
+        if (stats) {
+          pythonArgs.push('--stats');
+        }
+        if (recent) {
+          pythonArgs.push('--recent');
+        }
+        if (verbose) {
+          pythonArgs.push('--verbose');
+        }
+        
+        const result = await runPythonTool('clay_list_tales', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'search_tales': {
+        const { query, category, content = true, name_only = false, tags_only = false, limit = 10, context = 50 } = args;
+        
+        const pythonArgs = [query];
+        if (category) {
+          pythonArgs.push('--category', category);
+        }
+        if (!content) {
+          pythonArgs.push('--no-content');
+        }
+        if (name_only) {
+          pythonArgs.push('--name-only');
+        }
+        if (tags_only) {
+          pythonArgs.push('--tags-only');
+        }
+        if (limit !== 10) {
+          pythonArgs.push('--limit', limit.toString());
+        }
+        if (context !== 50) {
+          pythonArgs.push('--context', context.toString());
+        }
+        
+        const result = await runPythonTool('clay_search_tales', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'delete_tale': {
+        const { name, category, hard = false, confirm = false } = args;
+        
+        const pythonArgs = [name];
+        if (category) {
+          pythonArgs.push('--category', category);
+        }
+        if (hard) {
+          pythonArgs.push('--hard');
+        }
+        if (confirm) {
+          pythonArgs.push('--confirm');
+        }
+        
+        const result = await runPythonTool('clay_delete_tale', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'tale_stats': {
+        const { stats = true, health = false, cleanup = false, backup } = args;
+        
+        const pythonArgs = [];
+        if (stats) {
+          pythonArgs.push('--stats');
+        }
+        if (health) {
+          pythonArgs.push('--health');
+        }
+        if (cleanup) {
+          pythonArgs.push('--cleanup');
+        }
+        if (backup) {
+          pythonArgs.push('--backup', backup);
+        }
+        
+        const result = await runPythonTool('clay_tale_stats', pythonArgs);
         return { content: [{ type: 'text', text: result }] };
       }
       
