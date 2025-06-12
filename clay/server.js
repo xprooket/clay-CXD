@@ -95,8 +95,8 @@ async function runPythonTool(toolName, args = []) {
       reject(error);
     });
     
-    // Set timeout (longer for heavy tools like recall_cxd)
-    const timeout = toolName === 'clay_recall_cxd' ? 60000 : 30000;
+    // Set timeout (longer for heavy tools like recall_cxd and context_tale)
+    const timeout = (toolName === 'clay_recall_cxd' || toolName === 'clay_context_tale') ? 60000 : 30000;
     setTimeout(() => {
       pythonProcess.kill();
       reject(new Error(`Python tool ${toolName} timed out`));
@@ -308,6 +308,44 @@ const CLAY_TOOLS = {
       },
       required: ['memory_id']
     }
+  },
+  context_tale: {
+    name: 'context_tale',
+    description: 'Generate fluid narratives from memory fragments - perfect for onboarding new Claude instances',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'What story to tell (e.g., "introduction", "project history")'
+        },
+        chunk_size: {
+          type: 'number',
+          description: 'Target tokens per chunk for small LLMs (default: 500)',
+          default: 500
+        },
+        max_memories: {
+          type: 'number',
+          description: 'Maximum memories to include in narrative (default: 20)',
+          default: 20
+        },
+        function_filter: {
+          type: 'string',
+          description: 'CXD function filter (CONTROL, CONTEXT, DATA, ALL)',
+          default: 'ALL'
+        },
+        style: {
+          type: 'string',
+          description: 'Narrative style (auto, introduction, technical, philosophical, general)',
+          default: 'auto'
+        },
+        chunk_id: {
+          type: 'number',
+          description: 'Return only specific chunk number (optional)'
+        }
+      },
+      required: ['query']
+    }
   }
 };
 
@@ -427,6 +465,32 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
           pythonArgs.push('--confirm');
         }
         const result = await runPythonTool('clay_delete_memory_guided', pythonArgs);
+        return { content: [{ type: 'text', text: result }] };
+      }
+      
+      case 'context_tale': {
+        const { 
+          query, 
+          chunk_size = 500, 
+          max_memories = 20, 
+          function_filter = 'ALL', 
+          style = 'auto',
+          chunk_id 
+        } = args;
+        
+        const pythonArgs = [
+          query,
+          '--chunk-size', chunk_size.toString(),
+          '--max-memories', max_memories.toString(),
+          '--filter', function_filter,
+          '--style', style
+        ];
+        
+        if (chunk_id) {
+          pythonArgs.push('--chunk', chunk_id.toString());
+        }
+        
+        const result = await runPythonTool('clay_context_tale', pythonArgs);
         return { content: [{ type: 'text', text: result }] };
       }
       

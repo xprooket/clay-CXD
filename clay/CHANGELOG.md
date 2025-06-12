@@ -2,6 +2,76 @@
 
 All notable changes to the Clay-CXD semantic memory system are documented here.
 
+## [2.2.0] - 2025-06-12
+
+### 🎬 MAJOR RELEASE: Context Tale & Auto-Briefing System
+
+**NARRATIVE ENGINE**: Clay-CXD now generates fluid narratives from fragmented memories, solving the onboarding problem for new Claude instances.
+
+### ✨ Added
+- **🧠 Context Tale System (`clay_context_tale.py`)**
+  - Generates coherent narratives from memory fragments using recall_cxd hybrid search
+  - Intelligent text chunking for different token limits (500-1000 tokens)
+  - Multiple narrative styles: introduction, technical, philosophical, general
+  - Auto-style detection based on query content
+  - Persistent .txt file generation in `/tales/` directory with metadata headers
+  - MCP integration with full parameter support
+
+- **🎬 Auto-Briefing for New Instances**
+  - `status()` now provides automatic context briefing for new Claude instances
+  - Configurable via simple variables in clay_status.py (martillo approach)
+  - Session flag management to prevent repetitive briefings
+  - Uses context_tale for rich, contextual introductions vs basic bootstrap
+
+- **🔗 Memory Reference System**
+  - All context_tale narratives include memory ID placeholders `[ID:?]`
+  - Clear guidance: "To find specific IDs, use `recall('key words from memory')`"
+  - Smart search indicators showing hybrid semantic search usage
+  - Enables follow-up actions: `recall(ID)`, `update_memory_guided(ID)`
+
+### 🔧 Technical Implementation
+- **Context Tale Engine**
+  - Built on recall_cxd for semantic relevance vs simple keyword matching
+  - Token estimation and safe text chunking preserving narrative flow
+  - Chunk metadata includes: chunk_id, total_chunks, token_count, style, query
+  - Generation time tracking and performance logging
+
+- **Auto-Briefing Architecture**
+  - Simple variable-based configuration (no JSON/YAML complexity)
+  - Flag-based session tracking with 24-hour reset cycle
+  - Integrated into existing status() workflow without breaking changes
+  - Error handling with graceful degradation
+
+### 🎯 Use Cases Enabled
+- **New Instance Onboarding**: Automatic contextual introduction replacing manual continuity documents
+- **Memory Exploration**: Rich narratives for understanding project history and context
+- **Reference Discovery**: Easy path from narrative content to specific memory IDs
+- **Knowledge Transfer**: Fluid stories vs fragmented memory lists
+
+### 🏗️ Philosophy: "Martillo Approach"
+- **Simple > Complex**: Variable-based config vs complex systems
+- **Functional > Perfect**: Working ID guidance vs complex auto-lookup
+- **Smart Context + Simple References**: Best of both worlds
+- **"If it works, don't fix it"**: Built on proven recall_cxd foundation
+
+### 📊 Performance & Reliability
+- **Generation Speed**: ~15 seconds for 15-20 memory narrative
+- **Chunk Processing**: Intelligent splitting preserving context
+- **Error Handling**: Graceful fallbacks with helpful error messages
+- **File Persistence**: Automatic .txt generation with cache headers
+
+### 🧪 Testing & Validation
+- **Auto-Briefing**: Tested across multiple fresh instance starts
+- **Context Tale**: Validated with various query types and styles  
+- **Memory References**: Confirmed guidance leads to successful ID discovery
+- **File Generation**: .txt files properly cached in tales/ directory
+
+### 💡 User Experience Improvements
+- **Zero Configuration**: Works immediately with sensible defaults
+- **Clear Guidance**: Users understand how to find and use memory references
+- **Rich Context**: Narratives provide better understanding than raw memory lists
+- **Seamless Integration**: Feels natural within existing Clay workflow
+
 ## [2.1.0] - 2025-06-11
 
 ### 🚀 MAJOR UX RELEASE: Enhanced User Experience & Auto-Configuration

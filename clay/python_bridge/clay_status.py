@@ -7,6 +7,7 @@ Enhanced status with refs patterns system info
 import sys
 import os
 import sqlite3
+import time
 from pathlib import Path
 
 # FORCE UTF-8 I/O - CRITICAL para Windows
@@ -25,6 +26,13 @@ except ImportError as e:
     print(f"[ERROR] Error importing Clay: {e}", file=sys.stderr)
     print("[ERROR] Could not import Clay")
     sys.exit(1)
+
+# === AUTO-BRIEFING CONFIG (edit manually) ===
+AUTO_BRIEFING_ENABLED = True
+AUTO_BRIEFING_QUERY = "Claude wake up briefing Clay-CXD project context"
+AUTO_BRIEFING_STYLE = "general"
+AUTO_BRIEFING_MAX_MEMORIES = 15
+AUTO_BRIEFING_CHUNK_SIZE = 600
 
 def check_first_status_session():
     """Check if this is first status call in session and return bootstrap hint."""
@@ -205,6 +213,49 @@ def get_refs_patterns_stats(assistant):
     except Exception as e:
         return {'error': str(e)}
 
+def check_auto_briefing():
+    """Simple auto-briefing using context_tale - edit variables above to configure"""
+    if not AUTO_BRIEFING_ENABLED:
+        return None
+        
+    project_root = Path(__file__).parent.parent
+    flag_file = project_root / ".auto_briefing_shown"
+    
+    # Si ya se mostró hoy, skip
+    if flag_file.exists():
+        file_age = time.time() - flag_file.stat().st_mtime
+        if file_age < 86400:  # 24 horas
+            return None
+    
+    try:
+        # Import context_tale function
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from clay_context_tale import context_tale
+        
+        chunks = context_tale(
+            query=AUTO_BRIEFING_QUERY,
+            style=AUTO_BRIEFING_STYLE, 
+            max_memories=AUTO_BRIEFING_MAX_MEMORIES,
+            chunk_size=AUTO_BRIEFING_CHUNK_SIZE
+        )
+        
+        if chunks:
+            flag_file.touch()
+            
+            # Simple formatting
+            lines = ["🎬 CLAY-CXD AUTO-BRIEFING", "="*50, ""]
+            for chunk in chunks:
+                lines.append(chunk["content"])
+                if chunk["chunk_id"] < chunk["total_chunks"]:
+                    lines.append("\n" + "─"*30 + "\n")
+            lines.extend(["", "📁 Generated from Clay memory", "="*50])
+            
+            return "\n".join(lines)
+            
+    except Exception as e:
+        print(f"[DEBUG] Auto-briefing failed: {e}", file=sys.stderr)
+        return None
+
 def get_session_flags_status():
     """Check status of session flags"""
     try:
@@ -249,11 +300,17 @@ def main():
         # Initialize assistant
         assistant = ContextualAssistant("claude_mcp")
         
-        # === AUTO-BRIEFING CHECK ===
+        # Auto-briefing check (simple martillo version)
+        auto_briefing = check_auto_briefing()
+        if auto_briefing:
+            print(auto_briefing)
+            print()
+        
+        # === BOOTSTRAP CHECK ===
         if check_first_status_session():
             bootstrap_display = show_first_status_bootstrap(assistant)
             print(bootstrap_display)
-            # Continue with regular status after auto-briefing
+            # Continue with regular status after bootstrap
         
         # Get enhanced memory stats
         memory_stats = get_memory_stats(assistant)
