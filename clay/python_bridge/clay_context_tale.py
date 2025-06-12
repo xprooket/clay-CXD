@@ -310,5 +310,44 @@ def context_tale(query: str,
     
     return result_chunks
 
+def main():
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Clay Context Tale")
+    parser.add_argument("query", help="Query for context tale")
+    parser.add_argument("--chunk-size", type=int, default=500)
+    parser.add_argument("--max-memories", type=int, default=20)
+    parser.add_argument("--filter", default="ALL")
+    parser.add_argument("--style", default="auto")
+    parser.add_argument("--chunk", type=int, help="Return specific chunk")
+    
+    args = parser.parse_args()
+    
+    try:
+        chunks = context_tale(
+            query=args.query,
+            chunk_size=args.chunk_size,
+            max_memories=args.max_memories,
+            function_filter=args.filter,
+            style=args.style
+        )
+        
+        if args.chunk:
+            # Return specific chunk content as plain text
+            for chunk in chunks:
+                if chunk["chunk_id"] == args.chunk:
+                    print(chunk["content"])
+                    return
+        else:
+            # Return all chunks content as plain text
+            narrative_text = ""
+            for chunk in chunks:
+                narrative_text += chunk["content"] + "\n\n"
+            print(narrative_text.strip())
+            
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
 if __name__ == "__main__":
-    print("🧠 Clay Context Tale v1.4 - STABLE: Smart Context + Simple ID Guidance")
+    main()
