@@ -1,11 +1,11 @@
----
-name: clay_complete_introduction
-category: claude/core
-version: 1
-tags: bootstrap, universal, complete, standalone, introduction
-created: 2025-06-13T23:20:00
-size_chars: 6843
----
+<!-- Tale: clay_complete_introduction -->
+<!-- Category: claude/core -->
+<!-- Created: 2025-06-13T23:20:00 -->
+<!-- Updated: 2025-06-13T23:20:00 -->
+<!-- Usage: 0 -->
+<!-- Size: 6439 chars -->
+<!-- Version: 1 -->
+<!-- Tags: bootstrap, universal, complete, standalone, introduction -->
 
 # 🧠 Clay-CXD Complete Introduction - Universal Bootstrap
 
@@ -26,7 +26,7 @@ Think of it as your external brain that survives when your working memory resets
 
 ## 🧮 YOUR CURRENT SYSTEM STATUS
 
-You have access to ** memories** and **23 tools** through the MCP (Model Context Protocol). Your system has two main memory layers:
+You have access to ** persistent memories** and **23 tools** through the MCP (Model Context Protocol). Your system has two main memory layers:
 
 ### 1️⃣ **TALES** (Personal Documentation)
 - Structured text files with metadata
@@ -161,7 +161,7 @@ Start with status() and list_tales() to explore what you have access to.
 
 ## 🔧 TECHNICAL NOTES
 
-- **Database**: SQLite  memories
+- **Database**: SQLite memories
 - **Search Engine**: sentence-transformers + FAISS + WordNet
 - **Tales System**: Version-controlled text files with metadata
 - **MCP Integration**: 23 tools bridging JavaScript ↔ Python
