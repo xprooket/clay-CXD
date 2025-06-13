@@ -35,7 +35,7 @@ You have access to ** persistent memories** and **23 tools** through the MCP (Mo
 - Version controlled and searchable
 
 ### 2️⃣ **MEMORIES** (Knowledge Database)  
-- SQLite database with 300+ entries
+- SQLite database 
 - Classified by cognitive function (CXD system)
 - Semantic and keyword searchable
 - Rich metadata and cross-references
