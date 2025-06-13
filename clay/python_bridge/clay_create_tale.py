@@ -137,6 +137,12 @@ def main():
         if args.tags:
             tags = [tag.strip() for tag in args.tags.split(',') if tag.strip()]
         
+        # 💡 Reminder before creating
+        print("💡 Consider: Would updating an existing tale be better?")
+        print("   Use 'list_tales' or 'search_tales' to find related content first")
+        print("   Update preserves continuity better than creating new")
+        print()
+        
         # Create tale
         tale = tale_manager.create_tale(
             name=args.name,
