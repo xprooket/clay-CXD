@@ -26,7 +26,7 @@ Think of it as your external brain that survives when your working memory resets
 
 ## 🧮 YOUR CURRENT SYSTEM STATUS
 
-You have access to **300+ persistent memories** and **23 tools** through the MCP (Model Context Protocol). Your system has two main memory layers:
+You have access to ** memories** and **23 tools** through the MCP (Model Context Protocol). Your system has two main memory layers:
 
 ### 1️⃣ **TALES** (Personal Documentation)
 - Structured text files with metadata
@@ -161,7 +161,7 @@ Start with status() and list_tales() to explore what you have access to.
 
 ## 🔧 TECHNICAL NOTES
 
-- **Database**: SQLite with 300+ memories
+- **Database**: SQLite  memories
 - **Search Engine**: sentence-transformers + FAISS + WordNet
 - **Tales System**: Version-controlled text files with metadata
 - **MCP Integration**: 23 tools bridging JavaScript ↔ Python
