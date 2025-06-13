@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Clay MCP Server - JavaScript Edition
+ * Clay MCP Server v2.0 - JavaScript Edition
  * Robust stdio handling for Windows + Python bridge
+ * NEW: Support for claude/, projects/, misc/ tale structure
  */
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -347,10 +348,10 @@ const CLAY_TOOLS = {
       required: ['query']
     }
   },
-  // === TALE MANAGEMENT TOOLS ===
+  // === TALE MANAGEMENT TOOLS v2.0 ===
   create_tale: {
     name: 'create_tale',
-    description: 'Create a new personal autobiographical tale',
+    description: 'Create a new personal autobiographical tale (v2.0: claude/, projects/, misc/)',
     inputSchema: {
       type: 'object',
       properties: {
@@ -365,9 +366,8 @@ const CLAY_TOOLS = {
         },
         category: {
           type: 'string',
-          description: 'Tale category',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive'],
-          default: 'core'
+          description: 'Tale category (e.g., claude/core, projects/clay-cxd, misc/stories)',
+          default: 'claude/core'
         },
         tags: {
           type: 'string',
@@ -394,8 +394,7 @@ const CLAY_TOOLS = {
         },
         category: {
           type: 'string',
-          description: 'Specific category to search in (optional)',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+          description: 'Specific category to search in (e.g., claude/core, projects/clay-cxd)'
         },
         metadata: {
           type: 'boolean',
@@ -426,8 +425,7 @@ const CLAY_TOOLS = {
         },
         category: {
           type: 'string',
-          description: 'Specific category to search in (optional)',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+          description: 'Specific category to search in (e.g., claude/core, projects/clay-cxd)'
         },
         append: {
           type: 'string',
@@ -449,8 +447,7 @@ const CLAY_TOOLS = {
       properties: {
         category: {
           type: 'string',
-          description: 'Show only specific category',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+          description: 'Show only specific category (e.g., claude/core, projects/clay-cxd)'
         },
         sort: {
           type: 'string',
@@ -492,8 +489,7 @@ const CLAY_TOOLS = {
         },
         category: {
           type: 'string',
-          description: 'Search only in specific category',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+          description: 'Search only in specific category (e.g., claude/core, projects/clay-cxd)'
         },
         content: {
           type: 'boolean',
@@ -536,8 +532,7 @@ const CLAY_TOOLS = {
         },
         category: {
           type: 'string',
-          description: 'Specific category to search in (optional)',
-          enum: ['core', 'contexts', 'insights', 'current', 'archive']
+          description: 'Specific category to search in (e.g., claude/core, projects/clay-cxd)'
         },
         hard: {
           type: 'boolean',
@@ -587,7 +582,7 @@ const CLAY_TOOLS = {
 const server = new Server(
   {
     name: 'clay-memory-js',
-    version: '1.0.0',
+    version: '2.0.0',
   },
   {
     capabilities: {
@@ -728,9 +723,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         return { content: [{ type: 'text', text: result }] };
       }
       
-      // === TALE MANAGEMENT TOOLS ===
+      // === TALE MANAGEMENT TOOLS v2.0 ===
       case 'create_tale': {
-        const { name, content = '', category = 'core', tags, overwrite = false } = args;
+        const { name, content = '', category = 'claude/core', tags, overwrite = false } = args;
         
         const pythonArgs = [name, content, '--category', category];
         if (tags) {
@@ -908,7 +903,7 @@ process.on('unhandledRejection', (reason, promise) => {
 // === MAIN EXECUTION ===
 
 async function main() {
-  log('Clay MCP Server (JavaScript Edition) starting...');
+  log('Clay MCP Server v2.0 (JavaScript Edition) starting...');
   
   // Check if Python bridge directory exists
   if (!fs.existsSync(PYTHON_SCRIPTS_DIR)) {
@@ -922,7 +917,7 @@ async function main() {
   try {
     log('Connecting to stdio transport...');
     await server.connect(transport);
-    log('✅ Clay MCP Server connected and ready!');
+    log('✅ Clay MCP Server v2.0 connected and ready!');
   } catch (error) {
     log(`Failed to connect server: ${error.message}`);
     process.exit(1);

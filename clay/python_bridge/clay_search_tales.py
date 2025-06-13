@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Clay Search Tales - Personal Narrative Search Tool
+Clay Search Tales v2.0 - Personal Narrative Search Tool
 Find my thoughts and memories within my tales
+
+NEW STRUCTURE:
+- claude/*     → Personal continuity
+- projects/*   → Technical documentation  
+- misc/*       → Everything else
 """
 
 import sys
@@ -25,6 +30,15 @@ except ImportError as e:
     print(f"[ERROR] Error importing TaleManager: {e}", file=sys.stderr)
     print("[ERROR] Could not import Clay TaleManager")
     sys.exit(1)
+
+def get_valid_categories():
+    """Get list of valid categories from TaleManager"""
+    try:
+        tm = TaleManager()
+        return tm.get_valid_categories()
+    except Exception:
+        # Fallback to basic categories if TaleManager fails
+        return ['claude/core', 'claude/contexts', 'claude/insights', 'claude/current', 'claude/archive', 'projects', 'misc']
 
 def highlight_match(text: str, query: str, context_chars: int = 50) -> str:
     """Highlight search matches in text with context"""
@@ -78,11 +92,13 @@ def format_datetime(iso_string: str) -> str:
         return iso_string[:16]
 
 def main():
+    # Get valid categories dynamically
+    valid_categories = get_valid_categories()
+    
     parser = argparse.ArgumentParser(description="Search personal tales")
     parser.add_argument("query", help="Search query")
     parser.add_argument("--category", "-c", 
-                       choices=['core', 'contexts', 'insights', 'current', 'archive'],
-                       help="Search only in specific category")
+                       help=f"Search only in specific category. Valid: {', '.join(valid_categories[:5])}...")
     parser.add_argument("--json", action="store_true", help="Output JSON format")
     parser.add_argument("--content", action="store_true", help="Search in content (default)")
     parser.add_argument("--no-content", action="store_true", help="Don't search in content")
@@ -90,12 +106,58 @@ def main():
     parser.add_argument("--tags-only", action="store_true", help="Search only in tags")
     parser.add_argument("--limit", "-l", type=int, default=10, help="Limit number of results")
     parser.add_argument("--context", type=int, default=50, help="Characters of context around matches")
+    parser.add_argument("--list-categories", action="store_true", help="List all valid categories")
+    
+    # Handle list categories request
+    if len(sys.argv) > 1 and '--list-categories' in sys.argv:
+        print("📂 VALID CATEGORIES:")
+        print("=" * 50)
+        
+        # Group by main category
+        by_main = {}
+        for cat in valid_categories:
+            if '/' in cat:
+                main, sub = cat.split('/', 1)
+                if main not in by_main:
+                    by_main[main] = []
+                by_main[main].append(sub)
+            else:
+                if cat not in by_main:
+                    by_main[cat] = []
+        
+        for main, subs in sorted(by_main.items()):
+            if subs:
+                print(f"📁 {main}/")
+                for sub in sorted(subs):
+                    print(f"   └── {sub}")
+            else:
+                print(f"📁 {main}/")
+        
+        print()
+        print("💡 EXAMPLES:")
+        print("   --category claude/core          # Personal identity")  
+        print("   --category projects/clay-cxd    # Technical docs")
+        print("   --category misc/stories         # Creative content")
+        return
     
     args = parser.parse_args()
     
     try:
         # Initialize TaleManager
         tale_manager = TaleManager()
+        
+        # Validate category if provided
+        if args.category and args.category not in valid_categories:
+            # Try to be helpful with backward compatibility
+            if args.category in ['core', 'contexts', 'insights', 'current', 'archive']:
+                new_category = f"claude/{args.category}"
+                print(f"⚠️  CATEGORY MAPPING: '{args.category}' → '{new_category}'")
+                args.category = new_category
+            else:
+                print(f"❌ ERROR: Invalid category '{args.category}'")
+                print(f"Valid categories: {', '.join(valid_categories)}")
+                print("Use --list-categories to see all options")
+                sys.exit(1)
         
         # Determine search scope
         search_content = True
@@ -126,7 +188,8 @@ def main():
                 "results": results,
                 "total": len(results),
                 "category": args.category,
-                "search_content": search_content
+                "search_content": search_content,
+                "structure_version": "2.0"
             }
             print(json.dumps(result, indent=2, ensure_ascii=False))
         
@@ -154,16 +217,28 @@ def main():
             print("=" * 60)
             
             for i, result in enumerate(results, 1):
-                # Category icon
+                # Category icon - updated for new structure
                 category_icons = {
-                    'core': '🧠',
-                    'contexts': '🤝', 
-                    'insights': '💡',
+                    'claude/core': '🧠',
+                    'claude/contexts': '🤝', 
+                    'claude/insights': '💡',
+                    'claude/current': '🎯',
+                    'claude/archive': '📦',
+                    'core': '🧠',  # Backward compatibility
+                    'contexts': '🤝',
+                    'insights': '💡', 
                     'current': '🎯',
                     'archive': '📦'
                 }
                 
-                icon = category_icons.get(result['category'], '📄')
+                # Default icons for new structure
+                if result['category'].startswith('projects/'):
+                    icon = '🔧'
+                elif result['category'].startswith('misc/'):
+                    icon = '📄'
+                else:
+                    icon = category_icons.get(result['category'], '📄')
+                
                 score = result.get('search_score', 0)
                 matches = result.get('search_matches', [])
                 
@@ -192,14 +267,15 @@ def main():
             print("💡 NEXT STEPS:")
             print("   clay_load_tale <n>     - Load a specific tale")
             print("   clay_update_tale <n>   - Edit a tale")
-            print("   clay_list_tales        - Browse all tales")
+            print("   clay_search_tales --list-categories - See all categories")
     
     except Exception as e:
         if args.json:
             error_result = {
                 "status": "error",
                 "error": str(e),
-                "message": f"Search failed: {str(e)}"
+                "message": f"Search failed: {str(e)}",
+                "structure_version": "2.0"
             }
             print(json.dumps(error_result, indent=2, ensure_ascii=False))
         else:

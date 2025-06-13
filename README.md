@@ -58,6 +58,11 @@ This repository contains two complementary but independent tools:
 
 While they work powerfully together, each has independent value. Clay can work with other classification systems, and CXD can enhance any system that needs to understand functional intent in text.
 
+
+
+![Clay-CXD Blueprint](./cxd-classifier/docs/clay-blueprint.png)  
+_Approximate internal flow of Clay-CXD: input, classification, context building
+
 ### 🚀 Key Features
 
 **Clay Memory System:**

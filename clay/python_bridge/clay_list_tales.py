@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Clay List Tales - Personal Narrative Catalog Tool
+Clay List Tales v2.0 - Personal Narrative Catalog Tool
 Browse my collection of autobiographical tales
+
+NEW STRUCTURE:
+- claude/*     → Personal continuity
+- projects/*   → Technical documentation  
+- misc/*       → Everything else
 """
 
 import sys
@@ -25,6 +30,15 @@ except ImportError as e:
     print(f"[ERROR] Error importing TaleManager: {e}", file=sys.stderr)
     print("[ERROR] Could not import Clay TaleManager")
     sys.exit(1)
+
+def get_valid_categories():
+    """Get list of valid categories from TaleManager"""
+    try:
+        tm = TaleManager()
+        return tm.get_valid_categories()
+    except Exception:
+        # Fallback to basic categories if TaleManager fails
+        return ['claude/core', 'claude/contexts', 'claude/insights', 'claude/current', 'claude/archive', 'projects', 'misc']
 
 def format_datetime(iso_string: str) -> str:
     """Format ISO datetime for human reading"""
@@ -61,10 +75,12 @@ def format_size(chars: int) -> str:
         return f"{chars/1000000:.1f}M chars"
 
 def main():
+    # Get valid categories dynamically
+    valid_categories = get_valid_categories()
+    
     parser = argparse.ArgumentParser(description="List personal tales")
     parser.add_argument("--category", "-c", 
-                       choices=['core', 'contexts', 'insights', 'current', 'archive'],
-                       help="Show only specific category")
+                       help=f"Show only specific category. Valid: {', '.join(valid_categories[:5])}...")
     parser.add_argument("--sort", "-s", 
                        choices=['updated', 'created', 'usage', 'size', 'name'],
                        default='updated',
@@ -74,12 +90,58 @@ def main():
     parser.add_argument("--stats", action="store_true", help="Show statistics")
     parser.add_argument("--recent", "-r", action="store_true", help="Show only recent tales (last 7 days)")
     parser.add_argument("--verbose", "-v", action="store_true", help="Show detailed information")
+    parser.add_argument("--list-categories", action="store_true", help="List all valid categories")
+    
+    # Handle list categories request
+    if len(sys.argv) > 1 and '--list-categories' in sys.argv:
+        print("📂 VALID CATEGORIES:")
+        print("=" * 50)
+        
+        # Group by main category
+        by_main = {}
+        for cat in valid_categories:
+            if '/' in cat:
+                main, sub = cat.split('/', 1)
+                if main not in by_main:
+                    by_main[main] = []
+                by_main[main].append(sub)
+            else:
+                if cat not in by_main:
+                    by_main[cat] = []
+        
+        for main, subs in sorted(by_main.items()):
+            if subs:
+                print(f"📁 {main}/")
+                for sub in sorted(subs):
+                    print(f"   └── {sub}")
+            else:
+                print(f"📁 {main}/")
+        
+        print()
+        print("💡 EXAMPLES:")
+        print("   --category claude/core          # Personal identity")  
+        print("   --category projects/clay-cxd    # Technical docs")
+        print("   --category misc/stories         # Creative content")
+        return
     
     args = parser.parse_args()
     
     try:
         # Initialize TaleManager
         tale_manager = TaleManager()
+        
+        # Validate category if provided
+        if args.category and args.category not in valid_categories:
+            # Try to be helpful with backward compatibility
+            if args.category in ['core', 'contexts', 'insights', 'current', 'archive']:
+                new_category = f"claude/{args.category}"
+                print(f"⚠️  CATEGORY MAPPING: '{args.category}' → '{new_category}'")
+                args.category = new_category
+            else:
+                print(f"❌ ERROR: Invalid category '{args.category}'")
+                print(f"Valid categories: {', '.join(valid_categories)}")
+                print("Use --list-categories to see all options")
+                sys.exit(1)
         
         # Get all tales
         tales = tale_manager.list_tales(category=args.category, sort_by=args.sort)
@@ -100,7 +162,8 @@ def main():
                 "tales": tales,
                 "total": len(tales),
                 "category": args.category,
-                "sort": args.sort
+                "sort": args.sort,
+                "structure_version": "2.0"
             }
             
             if args.stats:
@@ -127,6 +190,7 @@ def main():
                 print("")
                 
                 print("🔧 SYSTEM:")
+                print(f"  Structure version: {stats.get('structure_version', '1.0')}")
                 print(f"  Cache size: {stats['cache_size']}")
                 print(f"  Cache hits: {stats['cache_hits']}")
                 print(f"  Cache misses: {stats['cache_misses']}")
@@ -149,16 +213,27 @@ def main():
             print("=" * 60)
             
             for i, tale in enumerate(tales, 1):
-                # Icons for categories
+                # Icons for categories - updated for new structure
                 category_icons = {
-                    'core': '🧠',
-                    'contexts': '🤝', 
-                    'insights': '💡',
+                    'claude/core': '🧠',
+                    'claude/contexts': '🤝', 
+                    'claude/insights': '💡',
+                    'claude/current': '🎯',
+                    'claude/archive': '📦',
+                    'core': '🧠',  # Backward compatibility
+                    'contexts': '🤝',
+                    'insights': '💡', 
                     'current': '🎯',
                     'archive': '📦'
                 }
                 
-                icon = category_icons.get(tale['category'], '📄')
+                # Default icons for new structure
+                if tale['category'].startswith('projects/'):
+                    icon = '🔧'
+                elif tale['category'].startswith('misc/'):
+                    icon = '📄'
+                else:
+                    icon = category_icons.get(tale['category'], '📄')
                 
                 if args.verbose:
                     # Detailed format
@@ -188,16 +263,18 @@ def main():
             
             print("")
             print("💡 QUICK COMMANDS:")
-            print("   clay_load_tale <name>     - Load a specific tale")
+            print("   clay_load_tale <n>     - Load a specific tale")
             print("   clay_search_tales <query> - Search tale content")
-            print("   clay_create_tale <name>   - Create new tale")
+            print("   clay_create_tale <n>   - Create new tale")
+            print("   clay_list_tales --list-categories - See all categories")
     
     except Exception as e:
         if args.json:
             error_result = {
                 "status": "error",
                 "error": str(e),
-                "message": f"Failed to list tales: {str(e)}"
+                "message": f"Failed to list tales: {str(e)}",
+                "structure_version": "2.0"
             }
             print(json.dumps(error_result, indent=2, ensure_ascii=False))
         else:
