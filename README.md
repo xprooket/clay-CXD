@@ -31,7 +31,6 @@ Clay isn't an implementation of CMI. It's proof that the ideas behind CMI were a
 
 ## 🎆 Production Ready (v2.1.0)
 
-**Clay-CXD is now in active use!** 24+ GitHub clones, 3+ independent users successfully deployed.
 
 ### 🛠️ What Makes It User-Friendly
 - **🤖 Auto-Configuration**: Fresh instances receive essential operational knowledge automatically
@@ -60,8 +59,13 @@ While they work powerfully together, each has independent value. Clay can work w
 
 
 
+
+
 ![Clay-CXD Blueprint](./cxd-classifier/docs/clay-blueprint.png)  
-_Approximate internal flow of Clay-CXD: input, classification, context building
+Approximate internal flow of Clay-CXD: input, classification, context building
+
+
+
 
 ### 🚀 Key Features
 
